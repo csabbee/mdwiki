@@ -1,7 +1,9 @@
 package io.github.kicsikrumpli.service;
 
+import io.github.kicsikrumpli.dao.FileDao;
 import io.github.kicsikrumpli.domain.MarkdownDocument;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -9,12 +11,19 @@ import com.google.common.base.Optional;
 
 @Component
 public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
-    @Value("${foo}")
-    private String defaultRoot;
+    @Value("${DEFAULT_AUTHOR}")
+    private String defaultAuthor;
+    @Autowired
+    private FileDao fileDao;
 
 	@Override
 	public Optional<MarkdownDocument> retrieveDocument(String documentName) {
-		return Optional.of(createDummyDocument());
+	    Optional<String> content = fileDao.readFile(documentName + ".md");
+	    MarkdownDocument document = null;
+	    if (content.isPresent()) {
+	        document = createSimpleDocument(documentName, content.get());
+	    }
+		return Optional.fromNullable(document);
 	}
 
     @Override
@@ -22,11 +31,11 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
 		// TODO Auto-generated method stub
 	}
 
-    private MarkdownDocument createDummyDocument() {
+    private MarkdownDocument createSimpleDocument(String documentName, String content) {
         return new MarkdownDocument.Builder()
-            .withName(defaultRoot + "dummyName")
-            .withAuthor("dummyAuthor")
-            .withContent("dummyContent")
+            .withName(documentName)
+            .withAuthor(defaultAuthor)
+            .withContent(content)
             .build();
     }
     
