@@ -3,6 +3,9 @@ package io.github.kicsikrumpli.controller;
 import io.github.kicsikrumpli.domain.MarkdownDocument;
 import io.github.kicsikrumpli.service.DocumentStore;
 
+import java.util.Collections;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,7 +41,8 @@ public class MarkdownController {
 	
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	@ExceptionHandler(DocumentNotFoundException.class)
-	public void handleDocumentNotFound() {
-	    // 404
+	@ResponseBody
+	public Map<String, String> handleDocumentNotFound(DocumentNotFoundException e) {
+	    return Collections.singletonMap("error", e.getMessage());
 	}
 }

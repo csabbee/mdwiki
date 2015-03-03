@@ -16,11 +16,11 @@ public class HomeDirectoryResolver {
      * @return
      */
     public String resolveHome(String path) {
-        String home = "";
+        String home;
         try {
             home = System.getProperty("user.home");
         } catch(IllegalArgumentException e) {
-            // o.O
+            home = "";
         }
         return path.replaceFirst("~", home );
     }

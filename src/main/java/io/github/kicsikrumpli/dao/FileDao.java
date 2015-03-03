@@ -34,11 +34,11 @@ public class FileDao {
      * @return optional of file cotents or absent if file does not exist
      */
     public Optional<String> readFile(String fileName) {
-        String result = null;
+        String result;
         try {
             result = readFileContents(fileName); 
         } catch (IOException e) {
-            throw new FileDaoReadException(e);
+            result = null;
         }
         return Optional.fromNullable(result);
     }

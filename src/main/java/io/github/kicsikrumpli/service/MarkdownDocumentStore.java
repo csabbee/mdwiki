@@ -13,12 +13,14 @@ import com.google.common.base.Optional;
 public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
     @Value("${DEFAULT_AUTHOR}")
     private String defaultAuthor;
+    @Value("#{'${MARKDOWN_EXTENSION:.md}'.trim()}")
+    private String defaultExtension;
     @Autowired
     private FileDao fileDao;
 
 	@Override
 	public Optional<MarkdownDocument> retrieveDocument(String documentName) {
-	    Optional<String> content = fileDao.readFile(documentName + ".md");
+	    Optional<String> content = fileDao.readFile(appendExtension(documentName));
 	    MarkdownDocument document = null;
 	    if (content.isPresent()) {
 	        document = createSimpleDocument(documentName, content.get());
@@ -31,6 +33,10 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
 		// TODO Auto-generated method stub
 	}
 
+    private String appendExtension(String documentName) {
+        return documentName + defaultExtension;
+    }
+    
     private MarkdownDocument createSimpleDocument(String documentName, String content) {
         return new MarkdownDocument.Builder()
             .withName(documentName)
