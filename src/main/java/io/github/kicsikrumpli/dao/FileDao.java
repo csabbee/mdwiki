@@ -45,4 +45,12 @@ public class FileDao {
     List<String> readAllLines(Path path) throws IOException {
         return Files.readAllLines(path, defaultCharset);
     }
+
+	void setDefaultCharset(Charset defaultCharset) {
+		this.defaultCharset = defaultCharset;
+	}
+
+	void setDefaultLineSeparator(String defaultLineSeparator) {
+		this.defaultLineSeparator = defaultLineSeparator;
+	}
 }
