@@ -11,6 +11,8 @@ import com.google.common.base.Optional;
 
 @Component
 public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
+    @Value("#{homeDirectoryResolver.resolveHome('${WIKI_ROOT}')}")
+    private String defaultRoot;
     @Value("${DEFAULT_AUTHOR}")
     private String defaultAuthor;
     @Value("#{'${MARKDOWN_EXTENSION:.md}'.trim()}")
@@ -20,7 +22,7 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
 
 	@Override
 	public Optional<MarkdownDocument> retrieveDocument(String documentName) {
-	    Optional<String> content = fileDao.readFile(appendExtension(documentName));
+	    Optional<String> content = fileDao.readFile(createPathElements(documentName));
 	    MarkdownDocument document = null;
 	    if (content.isPresent()) {
 	        document = createSimpleDocument(documentName, content.get());
@@ -28,14 +30,14 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
 		return Optional.fromNullable(document);
 	}
 
+    private String[] createPathElements(String documentName) {
+        return new String[]{defaultRoot, documentName + defaultExtension};
+    }
+
     @Override
 	public void storeDocument(MarkdownDocument document) {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("store operation not yet implemented");
 	}
-
-    private String appendExtension(String documentName) {
-        return documentName + defaultExtension;
-    }
     
     private MarkdownDocument createSimpleDocument(String documentName, String content) {
         return new MarkdownDocument.Builder()
