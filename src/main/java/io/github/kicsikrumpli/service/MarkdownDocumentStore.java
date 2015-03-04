@@ -1,12 +1,18 @@
 package io.github.kicsikrumpli.service;
 
 import io.github.kicsikrumpli.dao.FileDao;
+import io.github.kicsikrumpli.dao.PathBuilder;
 import io.github.kicsikrumpli.domain.MarkdownDocument;
 
+import java.nio.file.Path;
+
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 
 @Component
@@ -15,14 +21,16 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
     private String defaultRoot;
     @Value("${DEFAULT_AUTHOR}")
     private String defaultAuthor;
-    @Value("#{'${MARKDOWN_EXTENSION:.md}'.trim()}")
+    @Value("#{'${MARKDOWN_EXTENSION:md}'.trim()}")
     private String defaultExtension;
     @Autowired
     private FileDao fileDao;
+    @Autowired
+    private ObjectFactory<PathBuilder> pathBuilderFactory;
 
 	@Override
 	public Optional<MarkdownDocument> retrieveDocument(String documentName) {
-	    Optional<String> content = fileDao.readFile(createPathElements(documentName));
+	    Optional<String> content = fileDao.readFile(createPath(documentName));
 	    MarkdownDocument document = null;
 	    if (content.isPresent()) {
 	        document = createSimpleDocument(documentName, content.get());
@@ -30,8 +38,11 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
 		return Optional.fromNullable(document);
 	}
 
-    private String[] createPathElements(String documentName) {
-        return new String[]{defaultRoot, documentName + defaultExtension};
+    private Path createPath(String documentName) {
+    	return pathBuilderFactory.getObject()
+    			.withPathElement(defaultRoot)
+    			.withPathElement(Joiner.on(".").join(documentName, defaultExtension))
+    			.build();
     }
 
     @Override
@@ -47,4 +58,15 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
             .build();
     }
     
+	void setDefaultRoot(String defaultRoot) {
+		this.defaultRoot = defaultRoot;
+	}
+
+	void setDefaultAuthor(String defaultAuthor) {
+		this.defaultAuthor = defaultAuthor;
+	}
+
+	void setDefaultExtension(String defaultExtension) {
+		this.defaultExtension = defaultExtension;
+	}
 }
