@@ -1,8 +1,8 @@
 package io.github.kicsikrumpli.service;
 
-import io.github.kicsikrumpli.dao.FileDao;
-import io.github.kicsikrumpli.dao.PathBuilder;
-import io.github.kicsikrumpli.domain.MarkdownDocument;
+import io.github.kicsikrumpli.service.dao.FileDao;
+import io.github.kicsikrumpli.service.dao.PathBuilder;
+import io.github.kicsikrumpli.service.domain.MarkdownDocument;
 
 import java.nio.file.Path;
 
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 

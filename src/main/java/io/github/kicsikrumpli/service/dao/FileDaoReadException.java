@@ -1,4 +1,4 @@
-package io.github.kicsikrumpli.dao;
+package io.github.kicsikrumpli.service.dao;
 
 /**
  * Runtime exception thrown when file access fails.

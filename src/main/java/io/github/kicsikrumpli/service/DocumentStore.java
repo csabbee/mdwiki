@@ -1,6 +1,6 @@
 package io.github.kicsikrumpli.service;
 
-import io.github.kicsikrumpli.domain.BaseDocument;
+import io.github.kicsikrumpli.service.domain.BaseDocument;
 
 import com.google.common.base.Optional;
 

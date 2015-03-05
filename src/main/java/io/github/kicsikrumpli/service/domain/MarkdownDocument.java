@@ -1,4 +1,4 @@
-package io.github.kicsikrumpli.domain;
+package io.github.kicsikrumpli.service.domain;
 
 /**
  * Domain object for markdown document.

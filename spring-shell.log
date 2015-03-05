@@ -1,0 +1,33 @@
+// rest-shell 1.0.1.BUILD-SNAPSHOT log opened at 2015-03-05 18:39:44
+follow markdown
+headers set --name accept --value application/json
+post {"name": "test2", "author": "default", "content": "test2content"}
+follow ..
+up
+up
+follow mdwiki/markdown
+post {"name": "test2", "author": "default", "content": "test2content"}
+headers set --name Content-Type  --value application/json
+headers clear
+headers set --name Content-Type  --value application/json
+post {"name": "test2", "author": "default", "content": "test2content"}
+post {"name": "test2", "author": "default", "content": "test2content"}
+post '{"name": "test2", "author": "default", "content": "test2content"}'
+post "{'name': 'test2', 'author': 'default', 'content': 'test2content'}"
+// [failed] var set --name test --value {"name": "test2", "author": "default", "content": "test2content"}
+var set --name test --value '{"name": "test2", "author": "default", "content": "test2content"}'
+var get
+var list
+var set --name test --value "{\"name\": \"test2\", \"author\": \"default\", \"content\": \"test2content\"}"
+var list
+post test
+post "{\"name\": \"test2\", \"author\": \"default\", \"content\": \"test2content\"}"
+post "{\"name\": \"test2\", \"author\": \"default\", \"content\": \"test2content\"}"
+post 
+help
+!
+post --data "{\"name\": \"test2\", \"author\": \"default\", \"content\": \"test2content\"}"
+post --data "{\"name\": \"test2\", \"author\": \"default\", \"content\": \"test2content\"}"
+post --data "{name: 'test2', author: 'default', content: 'test2content'}"
+exit
+// rest-shell 1.0.1.BUILD-SNAPSHOT log closed at 2015-03-05 18:59:14

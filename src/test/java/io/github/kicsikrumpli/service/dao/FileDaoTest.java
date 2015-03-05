@@ -1,9 +1,10 @@
-package io.github.kicsikrumpli.dao;
+package io.github.kicsikrumpli.service.dao;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.BDDMockito.willThrow;
+import io.github.kicsikrumpli.service.dao.FileDao;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

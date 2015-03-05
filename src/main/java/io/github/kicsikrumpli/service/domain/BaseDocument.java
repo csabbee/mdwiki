@@ -1,4 +1,4 @@
-package io.github.kicsikrumpli.domain;
+package io.github.kicsikrumpli.service.domain;
 
 /**
  * Abstract base class containing document properties. 
