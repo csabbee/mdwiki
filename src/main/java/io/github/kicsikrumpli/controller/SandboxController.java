@@ -18,25 +18,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class SandboxController {
     private static final Logger logger = LoggerFactory.getLogger(SandboxController.class);
-    
+
     @Autowired
     private ObjectFactory<TextDocument.Builder> textDocumentBuilderFactory;
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/sandbox", method = RequestMethod.GET)
-	public String home() {
+
+    /**
+     * Simply selects the home view to render by returning its name.
+     */
+    @RequestMapping(value = "/sandbox", method = RequestMethod.GET)
+    public String home() {
         TextDocument document1 = textDocumentBuilderFactory.getObject()
                 .withEncoding(Charset.forName("ISO-8859-1"))
                 .withAuthor("author1")
                 .withName("name1")
                 .build();
-	    TextDocument document2 = textDocumentBuilderFactory.getObject()
-	            .withAuthor("author2")
-	            .build();
-	    logger.info("textdocument1:[{}] textdocument2:[{}] ", document1, document2);
-		return "home";
-	}
-	
+        TextDocument document2 = textDocumentBuilderFactory.getObject()
+                .withAuthor("author2")
+                .build();
+        logger.info("textdocument1:[{}] textdocument2:[{}] ", document1, document2);
+        return "home";
+    }
 }
