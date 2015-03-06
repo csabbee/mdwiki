@@ -1,7 +1,8 @@
 package io.github.kicsikrumpli.controller;
 
+import java.nio.charset.Charset;
+
 import io.github.kicsikrumpli.dao.domain.TextDocument;
-import io.github.kicsikrumpli.dao.domain.TextDocumentBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,15 +20,22 @@ public class SandboxController {
     private static final Logger logger = LoggerFactory.getLogger(SandboxController.class);
     
     @Autowired
-    private ObjectFactory<TextDocumentBuilder> textDocumentBuilderFactory;
+    private ObjectFactory<TextDocument.Builder> textDocumentBuilderFactory;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/sandbox", method = RequestMethod.GET)
 	public String home() {
-	    TextDocument document = textDocumentBuilderFactory.getObject().build();
-	    logger.info("test textdocument: {}", document);
+        TextDocument document1 = textDocumentBuilderFactory.getObject()
+                .withEncoding(Charset.forName("ISO-8859-1"))
+                .withAuthor("author1")
+                .withName("name1")
+                .build();
+	    TextDocument document2 = textDocumentBuilderFactory.getObject()
+	            .withAuthor("author2")
+	            .build();
+	    logger.info("textdocument1:[{}] textdocument2:[{}] ", document1, document2);
 		return "home";
 	}
 	
