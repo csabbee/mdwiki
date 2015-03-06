@@ -13,6 +13,7 @@ import com.google.common.collect.ImmutableList;
 
 /**
  * Domain object for text based documents.
+ * Create builder as @Autowired private ObjectFactory<TextDocument.Builder> textDocumentBuilderFactory;
  * @author daniel
  *
  */
