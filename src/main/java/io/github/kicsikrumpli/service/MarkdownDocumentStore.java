@@ -1,7 +1,6 @@
 package io.github.kicsikrumpli.service;
 
-import io.github.kicsikrumpli.service.dao.FileDao;
-import io.github.kicsikrumpli.service.dao.PathBuilder;
+import io.github.kicsikrumpli.dao.FileDao;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
 
 import java.nio.file.Path;

@@ -2,8 +2,8 @@ package io.github.kicsikrumpli.service.dao;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import io.github.kicsikrumpli.service.dao.HomeDirectoryResolver;
-import io.github.kicsikrumpli.service.dao.PathBuilder;
+import io.github.kicsikrumpli.service.HomeDirectoryResolver;
+import io.github.kicsikrumpli.service.PathBuilder;
 
 import java.nio.file.Path;
 

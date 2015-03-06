@@ -1,4 +1,4 @@
-package io.github.kicsikrumpli.service.dao;
+package io.github.kicsikrumpli.service;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

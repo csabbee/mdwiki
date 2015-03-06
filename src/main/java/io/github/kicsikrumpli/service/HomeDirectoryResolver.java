@@ -1,4 +1,4 @@
-package io.github.kicsikrumpli.service.dao;
+package io.github.kicsikrumpli.service;
 
 import org.springframework.stereotype.Component;
 
