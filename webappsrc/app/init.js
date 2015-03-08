@@ -11,7 +11,7 @@ caching();
 var mdwiki = angular.module('mdwiki',[
     'ui.router',
     'htmlTemplates'
-]).config(function ($stateProvider, $urlRouterProvider) {
+]).config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     'use strict';
 
     $urlRouterProvider.otherwise('/main');
@@ -22,6 +22,4 @@ var mdwiki = angular.module('mdwiki',[
         controller: MarkdownModule.ctrl,
         controllerAs: 'MainController'
     })
-});
-
-//mdwiki.$inject = ['$stateProvider', '$urlRouterProvider'];
+}]);
