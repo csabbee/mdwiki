@@ -33,6 +33,7 @@ function handleCallback(err, stdout) {
     }
     if(stdout){
         console.log(stdout);
+        gulp.start('copyJs');
     }
 }
 
@@ -108,8 +109,6 @@ gulp.task('watch', function () {
 
     gulp.watch(paths.dist_Js+'/**/*.js', ['indexJs']);
     gulp.watch(paths.dist_Css+'/**/*.css', ['indexCss']);
-
-    gulp.watch(paths.buildJs, ['cleanJs', 'copyJs']);
 
     gulp.watch(paths.appHtml, ['htmlcache']);
 
