@@ -6,7 +6,10 @@
     "gulp-load-plugins": "^0.8.1",
     "gulp-clean": "^0.3.1",
     "gulp-inject": "^1.2.0",
-    "jspm": "^0.14.0"
+    "jspm": "^0.14.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-size": "^1.2.1",
+    "require-dir": "^0.1.0"
   },
   "keywords": [
     "spring-mvc",
