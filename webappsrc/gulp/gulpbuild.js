@@ -21,6 +21,6 @@ function handleCallback(err, stdout) {
     }
 }
 
-gulp.task('build', function () {
+gulp.task('build', ['htmlcache'], function () {
     return exec('jspm bundle-sfx app/init ' + paths.dist_Js+'/build.js --minify', handleCallback);
 });
