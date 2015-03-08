@@ -1,7 +1,11 @@
 'use strict';
 
 var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+var plugins = require('gulp-load-plugins')({
+    pattern: ['gulp-*']
+});
+
+require('require-dir')('./gulp');
 
 var paths = {
     appJs: 'app/**/*.js',
@@ -13,9 +17,6 @@ var paths = {
     ignorePath: '../src/main/webapp'
 };
 
-var path = require('path');
-var clean = require('gulp-clean');
-var sort = require('sort-stream');
 var exec = require('child_process').exec;
 
 
