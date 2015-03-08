@@ -19,29 +19,33 @@ var paths = {
 
 var exec = require('child_process').exec;
 
+function handleCallback(err, stdout) {
+    if(err) {
+        console.error(err);
+    }
+    if(stdout){
+        console.log(stdout);
+    }
+}
 
 gulp.task('jspm', function () {
-    exec('jspm bundle-sfx app/init', function(error, stdout, stderr) {
-        console.log('stdout: ' + stdout);
-        if (error !== null) {
-            console.log('exec error: ' + error);
-        }
-    });
+    return exec('jspm bundle-sfx app/init', handleCallback);
 });
 
 gulp.task('cleanJs', function () {
     return gulp.src([paths.dist_Js+'/**/*.js'], {read: false})
-        .pipe(clean({force: true}));
+        .pipe(plugins.clean({force: true}));
 });
 gulp.task('cleanCss', function () {
     return gulp.src([paths.dist_Css+'/**/*.css'], {read: false})
-        .pipe(clean({force: true}));
+        .pipe(plugins.clean({force: true}));
 });
 
 gulp.task('copyJs', function () {
     return gulp.src(paths.buildJs)
-        .pipe(gulp.dest(paths.dist_Js));
+        .pipe(gulp.dest(paths.dist_Js))
 });
+
 gulp.task('copyCss', function () {
     return gulp.src(paths.appCss)
         .pipe(gulp.dest(paths.dist_Css));
