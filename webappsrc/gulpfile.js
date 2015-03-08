@@ -8,8 +8,10 @@ var plugins = require('gulp-load-plugins')({
 require('require-dir')('./gulp');
 
 var paths = {
+    mainFolder: './app',
     appJs: 'app/**/*.js',
     appCss: 'app/**/*.css',
+    appHtml: 'app/**/*.html',
     buildJs: './build.js*',
     dist_Js: '../src/main/webapp/resources/js/app',
     dist_Css: '../src/main/webapp/resources/css/app',
@@ -17,7 +19,13 @@ var paths = {
     ignorePath: '../src/main/webapp'
 };
 
+var htmlTemplateCacheOptions = {
+        standalone: true,
+        module: 'htmlTemplates'
+    };
+
 var exec = require('child_process').exec;
+var templateCache = require('gulp-angular-templatecache');
 
 function handleCallback(err, stdout) {
     if(err) {
@@ -83,6 +91,18 @@ gulp.task('indexJs', function () {
         .pipe(gulp.dest(paths.jsp));
 });
 
+gulp.task('htmlcache', function () {
+    return gulp.src(paths.appHtml)
+        .pipe(plugins.minifyHtml({
+            empty: true,
+            spare: true,
+            quotes: true
+        }))
+        .pipe(templateCache('htmltemplates.js', htmlTemplateCacheOptions))
+        .pipe(plugins.wrap('export function caching() { <%= contents %> }'))
+        .pipe(gulp.dest(paths.mainFolder));
+});
+
 gulp.task('watch', function () {
     gulp.watch('./bower.json', ['bower']);
 
@@ -90,6 +110,8 @@ gulp.task('watch', function () {
     gulp.watch(paths.dist_Css+'/**/*.css', ['indexCss']);
 
     gulp.watch(paths.buildJs, ['cleanJs', 'copyJs']);
+
+    gulp.watch(paths.appHtml, ['htmlcache']);
 
     gulp.watch(paths.appJs, ['jspm']);
     gulp.watch(paths.appCss, ['cleanCss', 'copyCss']);
