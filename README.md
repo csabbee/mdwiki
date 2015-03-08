@@ -18,3 +18,6 @@ The following commands should be given out in the **webappsrc** folder
     gulp watch
 
 Upon changing/adding any javascript, html file in the **app** folder it will bundle them together into the **build.js** file.
+
+## Reading materials
+* [Angular 1.x + ES6 modules](http://engineering.iconnect360.com/angularjs/)
