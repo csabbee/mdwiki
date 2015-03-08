@@ -13,8 +13,8 @@ var paths = {
     appCss: 'app/**/*.css',
     appHtml: 'app/**/*.html',
     buildJs: './build.js*',
-    dist_Js: '../src/main/webapp/resources/js/app',
-    dist_Css: '../src/main/webapp/resources/css/app',
+    dist_Js: '../src/main/webapp/resources/js',
+    dist_Css: '../src/main/webapp/resources/css',
     jsp: '../src/main/webapp/WEB-INF/views',
     ignorePath: '../src/main/webapp'
 };
@@ -41,7 +41,7 @@ gulp.task('jspm', function () {
 });
 
 gulp.task('cleanJs', function () {
-    return gulp.src([paths.dist_Js+'/**/*.js'], {read: false})
+    return gulp.src([paths.dist_Js+'/**/*.js*', paths.buildJs], {read: false})
         .pipe(plugins.clean({force: true}));
 });
 gulp.task('cleanCss', function () {
