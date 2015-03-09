@@ -1,7 +1,7 @@
 package io.github.kicsikrumpli.service;
 
-import io.github.kicsikrumpli.controller.domain.FetchDocumentRequest;
 import io.github.kicsikrumpli.dao.FileDao;
+import io.github.kicsikrumpli.service.domain.DocumentRequest;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
 import io.github.kicsikrumpli.service.strategy.MarkdownPathResolutionStrategy;
 
@@ -24,7 +24,7 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
     private MarkdownPathResolutionStrategy pathResolver;
 
 	@Override
-	public Optional<MarkdownDocument> retrieveDocument(FetchDocumentRequest documentRequest) {
+	public Optional<MarkdownDocument> retrieveDocument(DocumentRequest documentRequest) {
 	    Optional<String> content = fileDao.readFile(pathResolver.resolvePath(documentRequest));
 	    MarkdownDocument document = null;
 	    if (content.isPresent()) {

@@ -1,27 +1,27 @@
 package io.github.kicsikrumpli.controller.converter;
 
-import io.github.kicsikrumpli.controller.domain.FetchDocumentRequest;
+import io.github.kicsikrumpli.service.domain.DocumentRequest;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Converts get request data into request domain object {@link FetchDocumentRequest}. 
+ * Converts get request data into request domain object {@link DocumentRequest}. 
  * @author daniel
  *
  */
 @Component
-public class FetchDocumentRequestConverter {
+public class DocumentRequestConverter {
     @Autowired
-    private ObjectFactory<FetchDocumentRequest.Builder> getDocumentBuilderFactory;
+    private ObjectFactory<DocumentRequest.Builder> getDocumentBuilderFactory;
     
     /**
      * Convert controller parameters into request domain object.
      * @param documentName
      * @return
      */
-    public FetchDocumentRequest convert(String documentName) {
+    public DocumentRequest convert(String documentName) {
         return getDocumentBuilderFactory.getObject()
                 .withDocumentName(documentName)
                 .build();

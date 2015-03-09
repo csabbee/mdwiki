@@ -1,4 +1,4 @@
-package io.github.kicsikrumpli.controller.domain;
+package io.github.kicsikrumpli.service.domain;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
  * @author daniel
  *
  */
-public class FetchDocumentRequest {
+public class DocumentRequest {
     private String documentName;
     
-    private FetchDocumentRequest(Builder builder) {
+    private DocumentRequest(Builder builder) {
         documentName = builder.documentName;
     }
 
@@ -20,7 +20,7 @@ public class FetchDocumentRequest {
     }
 
     /**
-     * Builder bean for {@link FetchDocumentRequest} to construct object.
+     * Builder bean for {@link DocumentRequest} to construct object.
      * @author daniel
      *
      */
@@ -40,11 +40,11 @@ public class FetchDocumentRequest {
         }
         
         /**
-         * Builds {@link FetchDocumentRequest}.
+         * Builds {@link DocumentRequest}.
          * @return
          */
-        public FetchDocumentRequest build() {
-            return new FetchDocumentRequest(this);
+        public DocumentRequest build() {
+            return new DocumentRequest(this);
         }
     }
 }

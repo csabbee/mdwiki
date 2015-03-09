@@ -1,8 +1,8 @@
 package io.github.kicsikrumpli.controller;
 
-import io.github.kicsikrumpli.controller.converter.FetchDocumentRequestConverter;
-import io.github.kicsikrumpli.controller.converter.CreateDocumentRequestConverter;
-import io.github.kicsikrumpli.controller.domain.CreateDocumentRequest;
+import io.github.kicsikrumpli.controller.converter.CreateDocumentFormConverter;
+import io.github.kicsikrumpli.controller.converter.DocumentRequestConverter;
+import io.github.kicsikrumpli.controller.domain.CreateDocumentForm;
 import io.github.kicsikrumpli.service.DocumentStore;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
 
@@ -32,9 +32,9 @@ public class MarkdownJsonController {
 	@Autowired
 	private DocumentStore<MarkdownDocument> documentStore;
 	@Autowired
-	private CreateDocumentRequestConverter postRequestConverter;
+	private CreateDocumentFormConverter postRequestConverter;
 	@Autowired
-	private FetchDocumentRequestConverter getRequestConverter;
+	private DocumentRequestConverter getRequestConverter;
 	
 	@RequestMapping(value = "/markdown/{document}.json", 
 			method = RequestMethod.GET, 
@@ -54,7 +54,7 @@ public class MarkdownJsonController {
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Map<String, String> postMarkdownDocument(@RequestBody CreateDocumentRequest document) {
+	public Map<String, String> postMarkdownDocument(@RequestBody CreateDocumentForm document) {
 		logger.info("creating document: {}", document);
 		try {
 			documentStore.storeDocument(postRequestConverter.convert(document));
