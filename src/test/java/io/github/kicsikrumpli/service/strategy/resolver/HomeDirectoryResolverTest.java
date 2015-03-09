@@ -1,7 +1,7 @@
-package io.github.kicsikrumpli.service.dao;
+package io.github.kicsikrumpli.service.strategy.resolver;
 
 import static org.mockito.BDDMockito.given;
-import io.github.kicsikrumpli.service.HomeDirectoryResolver;
+import io.github.kicsikrumpli.service.strategy.resolver.HomeDirectoryResolver;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;

@@ -1,16 +1,19 @@
-package io.github.kicsikrumpli.service;
+package io.github.kicsikrumpli.service.strategy;
 
 import io.github.kicsikrumpli.controller.domain.GetDocumentRequest;
+import io.github.kicsikrumpli.service.strategy.builder.PathBuilder;
 
 import java.nio.file.Path;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.google.common.base.Joiner;
 
-public class MarkdownPathResolver {
+@Component
+public class MarkdownPathResolutionStrategy {
     @Value("#{homeDirectoryResolver.resolveHome('${WIKI_ROOT}')}")
     private String defaultRoot;
     @Value("#{'${MARKDOWN_EXTENSION:md}'.trim()}")

@@ -1,4 +1,4 @@
-package io.github.kicsikrumpli.service.dao;
+package io.github.kicsikrumpli.dao;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

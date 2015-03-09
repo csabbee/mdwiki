@@ -1,4 +1,4 @@
-package io.github.kicsikrumpli.service;
+package io.github.kicsikrumpli.service.strategy.resolver;
 
 import org.springframework.stereotype.Component;
 

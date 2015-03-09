@@ -1,4 +1,6 @@
-package io.github.kicsikrumpli.service;
+package io.github.kicsikrumpli.service.strategy.builder;
+
+import io.github.kicsikrumpli.service.strategy.resolver.HomeDirectoryResolver;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

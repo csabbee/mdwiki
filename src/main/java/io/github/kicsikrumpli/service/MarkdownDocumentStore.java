@@ -3,6 +3,7 @@ package io.github.kicsikrumpli.service;
 import io.github.kicsikrumpli.controller.domain.GetDocumentRequest;
 import io.github.kicsikrumpli.dao.FileDao;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
+import io.github.kicsikrumpli.service.strategy.MarkdownPathResolutionStrategy;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +19,13 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
     @Autowired
     private FileDao fileDao;
     @Autowired
-    private ObjectFactory<PathBuilder> pathBuilderFactory;
+    private ObjectFactory<MarkdownDocument.Builder> docuementBuilderFactory;
     @Autowired
-    private ObjectFactory<MarkdownDocument.Builder> markdownDocuementBuilderFactory;
-    @Autowired
-    private MarkdownPathResolver markdownPathResolver;
+    private MarkdownPathResolutionStrategy pathResolver;
 
 	@Override
 	public Optional<MarkdownDocument> retrieveDocument(GetDocumentRequest documentRequest) {
-	    Optional<String> content = fileDao.readFile(markdownPathResolver.resolvePath(documentRequest));
+	    Optional<String> content = fileDao.readFile(pathResolver.resolvePath(documentRequest));
 	    MarkdownDocument document = null;
 	    if (content.isPresent()) {
 	        document = createSimpleDocument(documentRequest.getDocumentName(), content.get());
@@ -40,7 +39,7 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
 	}
     
     private MarkdownDocument createSimpleDocument(String documentName, String content) {
-        return markdownDocuementBuilderFactory.getObject()
+        return docuementBuilderFactory.getObject()
             .withName(documentName)
             .withAuthor(defaultAuthor)
             .withContent(content)
