@@ -1,5 +1,6 @@
 package io.github.kicsikrumpli.service;
 
+import io.github.kicsikrumpli.controller.domain.GetDocumentRequest;
 import io.github.kicsikrumpli.service.domain.BaseDocument;
 
 import com.google.common.base.Optional;
@@ -13,11 +14,11 @@ public interface DocumentStore<DocumentType extends BaseDocument> {
 	
 	/**
 	 * Retireves document from document store.
-	 * @param documentName identifies document
+	 * @param getDocument identifies document
 	 * Throws DocumentNotFoundException when document is not found
 	 * @return document
 	 */
-	Optional<DocumentType> retrieveDocument(String documentName);
+	Optional<DocumentType> retrieveDocument(GetDocumentRequest getDocument);
 	
 	/**
 	 * Stores a document.

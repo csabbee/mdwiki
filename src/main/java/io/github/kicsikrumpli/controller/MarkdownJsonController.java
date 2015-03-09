@@ -1,5 +1,6 @@
 package io.github.kicsikrumpli.controller;
 
+import io.github.kicsikrumpli.controller.converter.GetDocumentRequestConverter;
 import io.github.kicsikrumpli.controller.converter.PostDocumentRequestConverter;
 import io.github.kicsikrumpli.controller.domain.PostDocument;
 import io.github.kicsikrumpli.service.DocumentStore;
@@ -25,28 +26,25 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.google.common.base.Optional;
 
 @Controller
-public class MarkdownController {
-	private static final Logger logger = LoggerFactory.getLogger(MarkdownController.class);
+public class MarkdownJsonController {
+	private static final Logger logger = LoggerFactory.getLogger(MarkdownJsonController.class);
 
 	@Autowired
 	private DocumentStore<MarkdownDocument> documentStore;
 	@Autowired
-	private PostDocumentRequestConverter postRequestCnoverter;
-	
-	@RequestMapping(value = "/wiki/{page}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-	public String getPageWithEmbeddedMarkdown() {
-		return "mdview";
-	}
+	private PostDocumentRequestConverter postRequestConverter;
+	@Autowired
+	private GetDocumentRequestConverter getRequestConverter;
 	
 	@RequestMapping(value = "/markdown/{document}.json", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public MarkdownDocument getMarkdownDocument(@PathVariable("document") String document) {
-		logger.info("retrieving document: {}", document);
-		Optional<MarkdownDocument> markdownDocument = documentStore.retrieveDocument(document);
+	public MarkdownDocument getMarkdownDocument(@PathVariable("document") String documentName) {
+		logger.info("retrieving document: {}", documentName);
+		Optional<MarkdownDocument> markdownDocument = documentStore.retrieveDocument(getRequestConverter.convert(documentName));
 		if (! markdownDocument.isPresent()) {
-		    throw new DocumentNotFoundException("No document by the name: " + document);
+		    throw new DocumentNotFoundException("No document by the name: " + documentName);
 		}
         return markdownDocument.get();
 	}
@@ -59,7 +57,7 @@ public class MarkdownController {
 	public Map<String, String> postMarkdownDocument(@RequestBody PostDocument document) {
 		logger.info("creating document: {}", document);
 		try {
-			documentStore.storeDocument(postRequestCnoverter.convert(document));
+			documentStore.storeDocument(postRequestConverter.convert(document));
 		} catch (UnsupportedOperationException e) {
 			logger.info("not implemented");
 		}

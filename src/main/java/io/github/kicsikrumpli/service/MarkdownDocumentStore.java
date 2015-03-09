@@ -1,47 +1,38 @@
 package io.github.kicsikrumpli.service;
 
+import io.github.kicsikrumpli.controller.domain.GetDocumentRequest;
 import io.github.kicsikrumpli.dao.FileDao;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
-
-import java.nio.file.Path;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 
 @Component
 public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
-    @Value("#{homeDirectoryResolver.resolveHome('${WIKI_ROOT}')}")
-    private String defaultRoot;
     @Value("${DEFAULT_AUTHOR}")
     private String defaultAuthor;
-    @Value("#{'${MARKDOWN_EXTENSION:md}'.trim()}")
-    private String defaultExtension;
     @Autowired
     private FileDao fileDao;
     @Autowired
     private ObjectFactory<PathBuilder> pathBuilderFactory;
+    @Autowired
+    private ObjectFactory<MarkdownDocument.Builder> markdownDocuementBuilderFactory;
+    @Autowired
+    private MarkdownPathResolver markdownPathResolver;
 
 	@Override
-	public Optional<MarkdownDocument> retrieveDocument(String documentName) {
-	    Optional<String> content = fileDao.readFile(createPath(documentName));
+	public Optional<MarkdownDocument> retrieveDocument(GetDocumentRequest documentRequest) {
+	    Optional<String> content = fileDao.readFile(markdownPathResolver.resolvePath(documentRequest));
 	    MarkdownDocument document = null;
 	    if (content.isPresent()) {
-	        document = createSimpleDocument(documentName, content.get());
+	        document = createSimpleDocument(documentRequest.getDocumentName(), content.get());
 	    }
 		return Optional.fromNullable(document);
 	}
-
-    private Path createPath(String documentName) {
-    	return pathBuilderFactory.getObject()
-    			.withPathElement(defaultRoot)
-    			.withPathElement(Joiner.on(".").join(documentName, defaultExtension))
-    			.build();
-    }
 
     @Override
 	public void storeDocument(MarkdownDocument document) {
@@ -49,22 +40,14 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
 	}
     
     private MarkdownDocument createSimpleDocument(String documentName, String content) {
-        return new MarkdownDocument.Builder()
+        return markdownDocuementBuilderFactory.getObject()
             .withName(documentName)
             .withAuthor(defaultAuthor)
             .withContent(content)
             .build();
     }
-    
-	void setDefaultRoot(String defaultRoot) {
-		this.defaultRoot = defaultRoot;
-	}
 
-	void setDefaultAuthor(String defaultAuthor) {
+    void setDefaultAuthor(String defaultAuthor) {
 		this.defaultAuthor = defaultAuthor;
-	}
-
-	void setDefaultExtension(String defaultExtension) {
-		this.defaultExtension = defaultExtension;
 	}
 }

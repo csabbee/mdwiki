@@ -1,5 +1,8 @@
 package io.github.kicsikrumpli.service.domain;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 /**
  * Domain object for markdown document.
  * @author daniel
@@ -19,6 +22,8 @@ public class MarkdownDocument extends BaseDocument {
 		return content;
 	}
 	
+	@Component
+	@Scope("prototype")
 	public static class Builder {
 	    private String name;
 	    private String author;
@@ -41,30 +46,5 @@ public class MarkdownDocument extends BaseDocument {
 	    public MarkdownDocument build() {
 	        return new MarkdownDocument(this);
 	    }
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((content == null) ? 0 : content.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MarkdownDocument other = (MarkdownDocument) obj;
-		if (content == null) {
-			if (other.content != null)
-				return false;
-		} else if (!content.equals(other.content))
-			return false;
-		return true;
 	}
 }
