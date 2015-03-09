@@ -1,6 +1,6 @@
 package io.github.kicsikrumpli.service.strategy;
 
-import io.github.kicsikrumpli.controller.domain.GetDocumentRequest;
+import io.github.kicsikrumpli.controller.domain.FetchDocumentRequest;
 import io.github.kicsikrumpli.service.strategy.builder.PathBuilder;
 
 import java.nio.file.Path;
@@ -21,7 +21,7 @@ public class MarkdownPathResolutionStrategy {
     @Autowired
     private ObjectFactory<PathBuilder> pathBuilderFactory;
 
-    public Path resolvePath(GetDocumentRequest documentRequest) {
+    public Path resolvePath(FetchDocumentRequest documentRequest) {
         return pathBuilderFactory.getObject()
                 .withPathElement(defaultRoot)
                 .withPathElement(Joiner.on(".").join(documentRequest.getDocumentName(), defaultExtension))

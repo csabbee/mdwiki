@@ -1,6 +1,6 @@
 package io.github.kicsikrumpli.controller.domain;
 
-public class PostDocument {
+public class CreateDocumentRequest {
     private String name;
     private String author;
 	private String content;

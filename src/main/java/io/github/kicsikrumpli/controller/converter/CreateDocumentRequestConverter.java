@@ -1,6 +1,6 @@
 package io.github.kicsikrumpli.controller.converter;
 
-import io.github.kicsikrumpli.controller.domain.PostDocument;
+import io.github.kicsikrumpli.controller.domain.CreateDocumentRequest;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
 
 import org.springframework.stereotype.Component;
@@ -11,14 +11,14 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class PostDocumentRequestConverter {
+public class CreateDocumentRequestConverter {
 	
 	/**
-	 * converts {@link PostDocument} object into {@link MarkdownDocument} domain object.
+	 * converts {@link CreateDocumentRequest} object into {@link MarkdownDocument} domain object.
 	 * @param postDocument request object
 	 * @return domain object
 	 */
-	public MarkdownDocument convert(PostDocument postDocument) {
+	public MarkdownDocument convert(CreateDocumentRequest postDocument) {
 		return new MarkdownDocument.Builder()
 			.withAuthor(postDocument.getAuthor())
 			.withName(postDocument.getName())
