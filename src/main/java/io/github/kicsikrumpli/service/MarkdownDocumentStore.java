@@ -7,7 +7,6 @@ import io.github.kicsikrumpli.service.domain.DocumentStoreRequest;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
 import io.github.kicsikrumpli.service.strategy.MarkdownPathResolverStrategy;
 
-import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +16,6 @@ import com.google.common.base.Optional;
 public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
     @Autowired
     private TextFileDao fileDao;
-    @Autowired
-    private ObjectFactory<MarkdownDocument.Builder> docuementBuilderFactory;
     @Autowired
     private MarkdownPathResolverStrategy pathResolver;
     @Autowired

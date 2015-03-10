@@ -85,5 +85,10 @@ public final class TextDocument {
         public TextDocument build() {
             return new TextDocument(this);
         }
+        
+        public Builder withDefaultCharset(Charset encoding) {
+            defaultCharset = encoding;
+            return this;
+        }
     }
 }
