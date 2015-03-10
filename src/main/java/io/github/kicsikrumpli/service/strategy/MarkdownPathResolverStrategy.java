@@ -28,9 +28,22 @@ public class MarkdownPathResolverStrategy implements PathResolverStrategy {
 
     @Override
     public Path resolvePath(DocumentStoreRequest documentRequest) {
+        String fileNameWithExtension = Joiner.on(".").join(documentRequest.getDocumentName(), defaultExtension);
         return pathBuilderFactory.getObject()
                 .withPathElement(defaultRoot)
-                .withPathElement(Joiner.on(".").join(documentRequest.getDocumentName(), defaultExtension))
+                .withPathElement(fileNameWithExtension)
                 .build();
+    }
+    
+    public void setDefaultRoot(String defaultRoot) {
+        this.defaultRoot = defaultRoot;
+    }
+
+    public void setDefaultExtension(String defaultExtension) {
+        this.defaultExtension = defaultExtension;
+    }
+
+    public void setPathBuilderFactory(ObjectFactory<PathBuilder> pathBuilderFactory) {
+        this.pathBuilderFactory = pathBuilderFactory;
     }
 }
