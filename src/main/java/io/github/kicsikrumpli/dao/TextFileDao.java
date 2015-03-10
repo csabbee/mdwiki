@@ -55,16 +55,16 @@ public class TextFileDao {
     private Optional<TextDocument> createWithContent(Optional<List<String>> lines, String fileName) {
         Optional<TextDocument> textDocument;
         if (lines.isPresent()) {
-            textDocument = Optional.of(doCreate(lines, fileName));
+            textDocument = Optional.of(doCreate(lines.get(), fileName));
         } else {
             textDocument = Optional.absent();
         }
         return textDocument;
     }
 
-    private TextDocument doCreate(Optional<List<String>> lines, String fileName) {
+    private TextDocument doCreate(List<String> lines, String fileName) {
         return textDocumentBuilderFactory.getObject()
-                .withLines(lines.get())
+                .withLines(lines)
                 .withAuthor(defaultAuthor)
                 .withEncoding(defaultCharset)
                 .withName(fileName)
@@ -75,11 +75,11 @@ public class TextFileDao {
 		this.defaultCharset = defaultCharset;
 	}
 
-    public void setDefaultAuthor(String defaultAuthor) {
+    void setDefaultAuthor(String defaultAuthor) {
         this.defaultAuthor = defaultAuthor;
     }
 
-    public void setTextDocumentBuilderFactory(ObjectFactory<TextDocument.Builder> textDocumentBuilderFactory) {
+    void setTextDocumentBuilderFactory(ObjectFactory<TextDocument.Builder> textDocumentBuilderFactory) {
         this.textDocumentBuilderFactory = textDocumentBuilderFactory;
     }
 }
