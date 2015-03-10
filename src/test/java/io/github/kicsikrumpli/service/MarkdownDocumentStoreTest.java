@@ -12,7 +12,6 @@ import io.github.kicsikrumpli.service.domain.DocumentStoreRequest;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
 import io.github.kicsikrumpli.service.strategy.MarkdownPathResolverStrategy;
 
-import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
