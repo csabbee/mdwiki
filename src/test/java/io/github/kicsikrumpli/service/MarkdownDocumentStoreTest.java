@@ -53,7 +53,7 @@ public class MarkdownDocumentStoreTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         given(mockPathResolver.resolvePath(mockDocumentRequest)).willReturn(MOCK_PATH);
-        mockTextFile = Optional.of(new TextDocument.Builder().withDefaultCharset(Charset.forName("UTF-8")).build());
+        mockTextFile = Optional.of(new TextDocument.Builder().build());
         mockMarkdownDocument = Optional.of(new MarkdownDocument.Builder().build());
     }
     

@@ -27,7 +27,7 @@ public final class TextDocument {
         author = builder.author;
         lines = ImmutableList.copyOf(builder.lines);
         name = builder.name;
-        encoding = builder.encoding.or(builder.defaultCharset);
+        encoding = builder.encoding;
     }
 
     public String getAuthor() {
@@ -49,16 +49,13 @@ public final class TextDocument {
     @Component
     @Scope("prototype")
     public static class Builder {
-        @Value("#{T(java.nio.charset.Charset).forName('${DEFAULT_ENCODING}')}")
-        private Charset defaultCharset;
-
         private String author;
         private List<String> lines = new ArrayList<String>();
         private String name;
-        Optional<Charset> encoding = Optional.absent();
+        Charset encoding;
         
         public Builder withEncoding(Charset encoding) {
-            this.encoding = Optional.fromNullable(encoding);
+            this.encoding = encoding;
             return this;
         }
         
@@ -84,11 +81,6 @@ public final class TextDocument {
         
         public TextDocument build() {
             return new TextDocument(this);
-        }
-        
-        public Builder withDefaultCharset(Charset encoding) {
-            defaultCharset = encoding;
-            return this;
         }
     }
 }
