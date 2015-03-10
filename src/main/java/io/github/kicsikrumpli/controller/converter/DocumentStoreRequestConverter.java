@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DocumentStoreRequestConverter {
     @Autowired
-    private ObjectFactory<DocumentStoreRequest.Builder> getDocumentBuilderFactory;
+    private ObjectFactory<DocumentStoreRequest.Builder> documentStoreRequestBuilderFactory;
     
     /**
      * Convert controller parameters into request domain object.
@@ -22,7 +22,7 @@ public class DocumentStoreRequestConverter {
      * @return
      */
     public DocumentStoreRequest convert(String documentName) {
-        return getDocumentBuilderFactory.getObject()
+        return documentStoreRequestBuilderFactory.getObject()
                 .withDocumentName(documentName)
                 .build();
     }
