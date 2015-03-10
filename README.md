@@ -1,11 +1,11 @@
 # mdwiki
 Simple wiki based on locally stored markdown files.
 
-## features
+## Features
 
 - retrieve markdown files in json with GET
 
-## planned features
+## Planned Features
 
 - create new markdown document with POST
 - add embedded Jetty server to make standalone app
@@ -17,7 +17,7 @@ Simple wiki based on locally stored markdown files.
 
 GET `mdwiki/markdown/<document>.json` where `document` is without extension.
 
-### Project defaults
+### Project Defaults
 
 - `WIKI_ROOT=~/wiki/markdown`
   directory the app looks for markdown files. Flat, subirecties are not scanned
