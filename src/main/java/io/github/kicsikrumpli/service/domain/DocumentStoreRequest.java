@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
  * @author daniel
  *
  */
-public class DocumentRequest {
+public class DocumentStoreRequest {
     private String documentName;
     
-    private DocumentRequest(Builder builder) {
+    private DocumentStoreRequest(Builder builder) {
         documentName = builder.documentName;
     }
 
@@ -20,7 +20,7 @@ public class DocumentRequest {
     }
 
     /**
-     * Builder bean for {@link DocumentRequest} to construct object.
+     * Builder bean for {@link DocumentStoreRequest} to construct object.
      * @author daniel
      *
      */
@@ -40,11 +40,11 @@ public class DocumentRequest {
         }
         
         /**
-         * Builds {@link DocumentRequest}.
+         * Builds {@link DocumentStoreRequest}.
          * @return
          */
-        public DocumentRequest build() {
-            return new DocumentRequest(this);
+        public DocumentStoreRequest build() {
+            return new DocumentStoreRequest(this);
         }
     }
 }
