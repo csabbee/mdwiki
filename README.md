@@ -4,10 +4,10 @@ Simple wiki based on locally stored markdown files.
 ## Features
 
 - retrieve markdown files in json with GET
+- create new markdown document with POST
 
 ## Planned Features
 
-- create new markdown document with POST
 - add embedded Jetty server to make standalone app
 - version control md documents with git
 - view markdown documents rendered as html
@@ -16,6 +16,14 @@ Simple wiki based on locally stored markdown files.
 ## Usage
 
 GET `mdwiki/markdown/<document>.json` where `document` is without extension.
+
+POST `mdwiki/markdown` with body
+
+    {
+      "author" : <author>,
+      "name" : <filename>,
+      "content" : <file-content>
+    }
 
 ### Project Defaults
 
