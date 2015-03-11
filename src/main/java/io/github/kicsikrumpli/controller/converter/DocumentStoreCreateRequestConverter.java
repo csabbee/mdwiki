@@ -14,12 +14,14 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class DocumentStoreCreateRequestConverter {
-	
 	@Autowired
 	private ObjectFactory<DocumentStoreCreateRequest.Builder> requestBuilderFactory;
 	
 	public DocumentStoreCreateRequest convert(MarkdownDocumentForm form) {
 		return requestBuilderFactory.getObject()
+				.withAuthor(form.getAuthor())
+				.withName(form.getName())
+				.withContent(form.getContent())
 				.build();
 	}
 }
