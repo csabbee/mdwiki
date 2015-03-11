@@ -9,8 +9,9 @@ Simple wiki based on locally stored markdown files.
 
 - create new markdown document with POST
 - add embedded Jetty server to make standalone app
-- version control md documents with git
 - view markdown documents rendered as html
+- version control md documents with git
+- integrate solr to provide search capabilities
 - integrate Spring Security
 
 ## Usage
