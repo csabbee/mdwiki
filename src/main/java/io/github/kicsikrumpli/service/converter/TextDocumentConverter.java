@@ -38,7 +38,7 @@ public class TextDocumentConverter {
     private MarkdownDocument doConvert(TextDocument documentToConvert) {
         return markdownDocumentBuilderFactory.getObject()
                 .withAuthor(documentToConvert.getAuthor())
-                .withName(documentToConvert.getName())
+                .withName(documentToConvert.getPath().getFileName().toString())
                 .withContent(convertContent(documentToConvert.getLines()))
                 .build();
     }

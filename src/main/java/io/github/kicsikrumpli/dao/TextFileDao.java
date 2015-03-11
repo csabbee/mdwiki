@@ -42,7 +42,7 @@ public class TextFileDao {
      */
     public Optional<TextDocument> readFile(Path path) {
         Optional<List<String>> lines = Optional.fromNullable(readAllLines(path));
-        return createTextDocument(lines, path.getFileName().toString());
+        return createTextDocument(lines, path);
     }
     
 	public void createFile(Path path) {
@@ -60,22 +60,22 @@ public class TextFileDao {
         return lines;
     }
 
-    private Optional<TextDocument> createTextDocument(Optional<List<String>> lines, String fileName) {
+    private Optional<TextDocument> createTextDocument(Optional<List<String>> lines, Path path) {
         Optional<TextDocument> textDocument;
         if (lines.isPresent()) {
-            textDocument = Optional.of(doCreate(lines.get(), fileName));
+            textDocument = Optional.of(doCreate(lines.get(), path));
         } else {
             textDocument = Optional.absent();
         }
         return textDocument;
     }
 
-    private TextDocument doCreate(List<String> lines, String fileName) {
+    private TextDocument doCreate(List<String> lines, Path path) {
         return textDocumentBuilderFactory.getObject()
                 .withLines(lines)
                 .withAuthor(defaultAuthor)
                 .withEncoding(defaultCharset)
-                .withName(fileName)
+                .withPath(path)
                 .build();
     }
     
