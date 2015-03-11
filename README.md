@@ -29,3 +29,7 @@ GET `mdwiki/markdown/<document>.json` where `document` is without extension.
 - `DEFAULT_AUTHOR=default-author`
 
 override with `-D<parameter>=<value>` at startup
+
+## Notes
+
+- [Spring Data Solr](http://docs.spring.io/spring-data/solr/docs/1.4.0.RC1/reference/html/)
