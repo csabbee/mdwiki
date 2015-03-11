@@ -20,7 +20,7 @@ public class DocumentStoreCreateRequestConverter {
 	public DocumentStoreCreateRequest convert(MarkdownDocumentForm form) {
 		return requestBuilderFactory.getObject()
 				.withAuthor(form.getAuthor())
-				.withName(form.getName())
+				.withDocumentName(form.getName())
 				.withContent(form.getContent())
 				.build();
 	}

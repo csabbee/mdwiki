@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +25,8 @@ import com.google.common.base.Optional;
  */
 @Component
 public class TextFileDao {
+	private static final Logger logger = LoggerFactory.getLogger(TextFileDao.class);
+	
     @Value("${DEFAULT_AUTHOR}")
     private String defaultAuthor;
     @Value("#{T(java.nio.charset.Charset).forName('${DEFAULT_ENCODING}')}")
@@ -38,8 +42,12 @@ public class TextFileDao {
      */
     public Optional<TextDocument> readFile(Path path) {
         Optional<List<String>> lines = Optional.fromNullable(readAllLines(path));
-        return createWithContent(lines, path.getFileName().toString());
+        return createTextDocument(lines, path.getFileName().toString());
     }
+    
+	public void createFile(Path path) {
+		logger.info("create file with path: {}", path);
+	}
 
     @VisibleForTesting
     List<String> readAllLines(Path path) {
@@ -52,7 +60,7 @@ public class TextFileDao {
         return lines;
     }
 
-    private Optional<TextDocument> createWithContent(Optional<List<String>> lines, String fileName) {
+    private Optional<TextDocument> createTextDocument(Optional<List<String>> lines, String fileName) {
         Optional<TextDocument> textDocument;
         if (lines.isPresent()) {
             textDocument = Optional.of(doCreate(lines.get(), fileName));

@@ -24,12 +24,13 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
 
 	@Override
 	public Optional<MarkdownDocument> retrieveDocument(DocumentStoreFindRequest documentRequest) {
-	    Optional<TextDocument> textFile = fileDao.readFile(pathResolver.resolvePath(documentRequest));
+	    Optional<TextDocument> textFile = fileDao.readFile(pathResolver.resolvePath(documentRequest.getDocumentName()));
 	    Optional<MarkdownDocument> document = textDocumentConverter.convert(textFile);
 		return document;
 	}
 
     @Override
 	public void storeDocument(DocumentStoreCreateRequest documentRequest) {
+    	fileDao.createFile(pathResolver.resolvePath(documentRequest.getDocumentName()));
 	}
 }

@@ -9,18 +9,18 @@ import org.springframework.stereotype.Component;
  *
  */
 public final class DocumentStoreCreateRequest {
-	private String name;
+	private String documentName;
 	private String author;
 	private String content;
 
 	private DocumentStoreCreateRequest(Builder builder) {
-		name = builder.name;
+		documentName = builder.documentName;
 		author = builder.author;
 		content = builder.content;
 	}
 	
-	public String getName() {
-		return name;
+	public String getDocumentName() {
+		return documentName;
 	}
 
 	public String getAuthor() {
@@ -39,7 +39,7 @@ public final class DocumentStoreCreateRequest {
 	@Component
 	@Scope("prototype")
 	public static class Builder {
-		private String name;
+		private String documentName;
 		private String author;
 		private String content;
 
@@ -48,8 +48,8 @@ public final class DocumentStoreCreateRequest {
 		 * @param name of document
 		 * @return builder instance
 		 */
-		public Builder withName(String name) {
-			this.name = name;
+		public Builder withDocumentName(String name) {
+			this.documentName = name;
 			return this;
 		}
 		
