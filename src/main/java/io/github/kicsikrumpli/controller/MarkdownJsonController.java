@@ -3,6 +3,7 @@ package io.github.kicsikrumpli.controller;
 import io.github.kicsikrumpli.controller.converter.DocumentStoreCreateRequestConverter;
 import io.github.kicsikrumpli.controller.converter.DocumentStoreFindRequestConverter;
 import io.github.kicsikrumpli.controller.domain.MarkdownDocumentForm;
+import io.github.kicsikrumpli.service.CannotWriteDocumentException;
 import io.github.kicsikrumpli.service.DocumentStore;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
 
@@ -71,4 +72,12 @@ public class MarkdownJsonController {
 	public Map<String, String> handleDocumentNotFound(DocumentNotFoundException e) {
 	    return Collections.singletonMap("error", e.getMessage());
 	}
+	
+	@ResponseStatus(value = HttpStatus.METHOD_FAILURE)
+	@ExceptionHandler(CannotWriteDocumentException.class)
+	@ResponseBody
+	public Map<String, String> handleCannotWriteDocument(CannotWriteDocumentException e) {
+	    return Collections.singletonMap("error", e.getMessage());
+	}
+
 }

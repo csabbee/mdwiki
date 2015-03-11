@@ -7,7 +7,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import io.github.kicsikrumpli.dao.TextFileDao;
 import io.github.kicsikrumpli.dao.domain.TextDocument;
-import io.github.kicsikrumpli.service.converter.TextDocumentConverter;
+import io.github.kicsikrumpli.service.converter.TextDocumentResponseConverter;
 import io.github.kicsikrumpli.service.domain.DocumentStoreFindRequest;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
 import io.github.kicsikrumpli.service.strategy.MarkdownPathResolverStrategy;
@@ -39,7 +39,7 @@ public class MarkdownDocumentStoreTest {
     @Mock
     private MarkdownPathResolverStrategy mockPathResolver;
     @Mock
-    private TextDocumentConverter mockTextDocumentConverter;
+    private TextDocumentResponseConverter mockTextDocumentConverter;
 
     
     private DocumentStoreFindRequest mockDocumentRequest = new DocumentStoreFindRequest.Builder()

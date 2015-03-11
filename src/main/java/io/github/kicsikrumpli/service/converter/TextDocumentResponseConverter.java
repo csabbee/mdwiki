@@ -19,7 +19,7 @@ import com.google.common.base.Optional;
  *
  */
 @Component
-public class TextDocumentConverter {
+public class TextDocumentResponseConverter {
     @Value("${LINE_SEPARATOR:\n}")
     private String defaultLineSeparator;
     @Autowired

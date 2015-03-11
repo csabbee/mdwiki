@@ -8,8 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,8 +23,6 @@ import com.google.common.base.Optional;
  */
 @Component
 public class TextFileDao {
-	private static final Logger logger = LoggerFactory.getLogger(TextFileDao.class);
-	
     @Value("${DEFAULT_AUTHOR}")
     private String defaultAuthor;
     @Value("#{T(java.nio.charset.Charset).forName('${DEFAULT_ENCODING}')}")
@@ -37,16 +33,21 @@ public class TextFileDao {
     /**
      * Reads contents of a file into a string.
      * Throws IOException wrapped in runtime exception.
-     * @param fileName name of file to read relative to default root set by configuration.
+     * @param path of file to read relative to default root set by configuration.
      * @return optional of file contents or absent if file does not exist
      */
     public Optional<TextDocument> readFile(Path path) {
         Optional<List<String>> lines = Optional.fromNullable(readAllLines(path));
-        return createTextDocument(lines, path);
+        return buildTextDocument(lines, path);
     }
     
-	public void createFile(Path path) {
-		logger.info("create file with path: {}", path);
+    /**
+     * Writes text document to file.
+     * @param document to write
+     * @throws IOException
+     */
+	public void createFile(TextDocument document) throws IOException {
+		Files.write(document.getPath(), document.getLines(), Optional.fromNullable(document.getEncoding()).or(defaultCharset));
 	}
 
     @VisibleForTesting
@@ -60,17 +61,17 @@ public class TextFileDao {
         return lines;
     }
 
-    private Optional<TextDocument> createTextDocument(Optional<List<String>> lines, Path path) {
+    private Optional<TextDocument> buildTextDocument(Optional<List<String>> lines, Path path) {
         Optional<TextDocument> textDocument;
         if (lines.isPresent()) {
-            textDocument = Optional.of(doCreate(lines.get(), path));
+            textDocument = Optional.of(doBuild(lines.get(), path));
         } else {
             textDocument = Optional.absent();
         }
         return textDocument;
     }
 
-    private TextDocument doCreate(List<String> lines, Path path) {
+    private TextDocument doBuild(List<String> lines, Path path) {
         return textDocumentBuilderFactory.getObject()
                 .withLines(lines)
                 .withAuthor(defaultAuthor)

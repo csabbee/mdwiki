@@ -22,13 +22,13 @@ import org.springframework.beans.factory.ObjectFactory;
 import com.google.common.base.Optional;
 
 /**
- * Test class for {@link TextDocumentConverter}.
+ * Test class for {@link TextDocumentResponseConverter}.
  * @author daniel
  *
  */
 public class TextDocumentConverterTest {
     @InjectMocks
-    private TextDocumentConverter underTest;
+    private TextDocumentResponseConverter underTest;
     @Mock
     private ObjectFactory<MarkdownDocument.Builder> mockMarkdownDocumentBuilderFactory;
     @Mock
