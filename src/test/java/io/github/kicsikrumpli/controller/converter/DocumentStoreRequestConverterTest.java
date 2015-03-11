@@ -3,7 +3,7 @@ package io.github.kicsikrumpli.controller.converter;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
-import io.github.kicsikrumpli.service.domain.DocumentStoreRequest;
+import io.github.kicsikrumpli.service.domain.DocumentStoreFindRequest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.ObjectFactory;
 
 /**
- * Test class for {@link DocumentStoreRequestConverter}.
+ * Test class for {@link DocumentStoreFindRequestConverter}.
  * @author kicsikrumpli1
  *
  */
@@ -23,14 +23,14 @@ public class DocumentStoreRequestConverterTest {
 	private static final String MOCK_DOCUMENT_NAME = "mock-document-name";
 	
 	@InjectMocks
-	private DocumentStoreRequestConverter underTest;
+	private DocumentStoreFindRequestConverter underTest;
 	@Mock
-    private ObjectFactory<DocumentStoreRequest.Builder> mockDocumentBuilderFactory;
+    private ObjectFactory<DocumentStoreFindRequest.Builder> mockDocumentBuilderFactory;
 	@Mock
-	private DocumentStoreRequest.Builder mockBuilder;
+	private DocumentStoreFindRequest.Builder mockBuilder;
 
 	private String mockDocumentName = MOCK_DOCUMENT_NAME;
-	private DocumentStoreRequest mockDocumentStoreRequest = createMockDocumentStoreRequest();
+	private DocumentStoreFindRequest mockDocumentStoreRequest = createMockDocumentStoreRequest();
 
 	@Before
 	public void setUp() {
@@ -45,10 +45,10 @@ public class DocumentStoreRequestConverterTest {
 		// GIVEN in setUp
 		
 		// WHEN
-		DocumentStoreRequest request = underTest.convert(mockDocumentName);
+		DocumentStoreFindRequest request = underTest.convert(mockDocumentName);
 		
 		// THEN
-		assertThat(request, is(DocumentStoreRequest.class));
+		assertThat(request, is(DocumentStoreFindRequest.class));
 	}
 	
 	@Test
@@ -65,7 +65,7 @@ public class DocumentStoreRequestConverterTest {
 
 	}
 
-	private DocumentStoreRequest createMockDocumentStoreRequest() {
-		return new DocumentStoreRequest.Builder().withDocumentName(MOCK_DOCUMENT_NAME).build();
+	private DocumentStoreFindRequest createMockDocumentStoreRequest() {
+		return new DocumentStoreFindRequest.Builder().withDocumentName(MOCK_DOCUMENT_NAME).build();
 	};
 }

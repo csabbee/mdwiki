@@ -2,9 +2,9 @@ package io.github.kicsikrumpli.controller;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.BDDMockito.given;
-import io.github.kicsikrumpli.controller.converter.DocumentStoreRequestConverter;
+import io.github.kicsikrumpli.controller.converter.DocumentStoreFindRequestConverter;
 import io.github.kicsikrumpli.service.DocumentStore;
-import io.github.kicsikrumpli.service.domain.DocumentStoreRequest;
+import io.github.kicsikrumpli.service.domain.DocumentStoreFindRequest;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
 
 import org.hamcrest.Matchers;
@@ -29,9 +29,9 @@ public class MarkdownJsonControllerTest {
     @Mock
     private DocumentStore<MarkdownDocument> mockDocumentStore;
     @Mock
-    private DocumentStoreRequestConverter mockDocumentRequestConverter;
+    private DocumentStoreFindRequestConverter mockDocumentRequestConverter;
     private String mockDocumentName;
-    private DocumentStoreRequest mockDocumentStoreRequest;
+    private DocumentStoreFindRequest mockDocumentStoreRequest;
 	private MarkdownDocument mockMarkdownDocument;
 
     @Before
@@ -85,7 +85,7 @@ public class MarkdownJsonControllerTest {
 		return new MarkdownDocument.Builder().build();
 	}
 
-    private DocumentStoreRequest createMockDocumentStoreRequest() {
-        return new DocumentStoreRequest.Builder().withDocumentName(MOCK_DOCUMENT_NAME).build();
+    private DocumentStoreFindRequest createMockDocumentStoreRequest() {
+        return new DocumentStoreFindRequest.Builder().withDocumentName(MOCK_DOCUMENT_NAME).build();
     }
 }

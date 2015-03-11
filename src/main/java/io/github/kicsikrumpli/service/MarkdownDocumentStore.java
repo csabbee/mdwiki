@@ -3,7 +3,8 @@ package io.github.kicsikrumpli.service;
 import io.github.kicsikrumpli.dao.TextFileDao;
 import io.github.kicsikrumpli.dao.domain.TextDocument;
 import io.github.kicsikrumpli.service.converter.TextDocumentConverter;
-import io.github.kicsikrumpli.service.domain.DocumentStoreRequest;
+import io.github.kicsikrumpli.service.domain.DocumentStoreCreateRequest;
+import io.github.kicsikrumpli.service.domain.DocumentStoreFindRequest;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
 import io.github.kicsikrumpli.service.strategy.MarkdownPathResolverStrategy;
 
@@ -22,14 +23,13 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
     private TextDocumentConverter textDocumentConverter;
 
 	@Override
-	public Optional<MarkdownDocument> retrieveDocument(DocumentStoreRequest documentRequest) {
+	public Optional<MarkdownDocument> retrieveDocument(DocumentStoreFindRequest documentRequest) {
 	    Optional<TextDocument> textFile = fileDao.readFile(pathResolver.resolvePath(documentRequest));
 	    Optional<MarkdownDocument> document = textDocumentConverter.convert(textFile);
 		return document;
 	}
 
     @Override
-	public void storeDocument(MarkdownDocument document) {
-		throw new UnsupportedOperationException("store operation not yet implemented");
+	public void storeDocument(DocumentStoreCreateRequest documentRequest) {
 	}
 }

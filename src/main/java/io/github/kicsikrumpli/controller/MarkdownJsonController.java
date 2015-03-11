@@ -1,6 +1,8 @@
 package io.github.kicsikrumpli.controller;
 
-import io.github.kicsikrumpli.controller.converter.DocumentStoreRequestConverter;
+import io.github.kicsikrumpli.controller.converter.DocumentStoreCreateRequestConverter;
+import io.github.kicsikrumpli.controller.converter.DocumentStoreFindRequestConverter;
+import io.github.kicsikrumpli.controller.domain.MarkdownDocumentForm;
 import io.github.kicsikrumpli.service.DocumentStore;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
 
@@ -15,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,7 +37,9 @@ public class MarkdownJsonController {
 	@Autowired
 	private DocumentStore<MarkdownDocument> documentStore;
 	@Autowired
-	private DocumentStoreRequestConverter documentRequestConverter;
+	private DocumentStoreFindRequestConverter documentRequestConverter;
+	@Autowired
+	private DocumentStoreCreateRequestConverter createDocumentRequestConveter;
 	
 	@RequestMapping(value = "/markdown/{document}.json", 
 			method = RequestMethod.GET, 
@@ -47,6 +52,17 @@ public class MarkdownJsonController {
 		    throw new DocumentNotFoundException("No document by the name: " + documentName);
 		}
         return markdownDocument.get();
+	}
+	
+	@RequestMapping(value = "/markdown",
+			method = RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE,
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Map<String, String> createMarkdownDocument(@RequestBody MarkdownDocumentForm form) {
+		logger.info("creating document: {}", form);
+		documentStore.storeDocument(createDocumentRequestConveter.convert(form));
+		return Collections.singletonMap("status", "ok");
 	}
 	
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)

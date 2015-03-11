@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import io.github.kicsikrumpli.service.domain.DocumentStoreRequest;
+import io.github.kicsikrumpli.service.domain.DocumentStoreFindRequest;
 import io.github.kicsikrumpli.service.strategy.builder.PathBuilder;
 
 import java.nio.file.Path;
@@ -38,14 +38,14 @@ public class MarkdownPathResolverStrategyTest {
     @Mock
     private PathBuilder mockPathBuilder;
     
-    private DocumentStoreRequest mockDocumentRequest;
+    private DocumentStoreFindRequest mockDocumentRequest;
     
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         underTest.setDefaultExtension(MOCK_EXTENSION);
         underTest.setDefaultRoot(MOCK_ROOT);
-        mockDocumentRequest = new DocumentStoreRequest.Builder()
+        mockDocumentRequest = new DocumentStoreFindRequest.Builder()
             .withDocumentName(MOCK_DOCUMENT_NAME)
             .build();
         given(mockPathBuilderFactory.getObject()).willReturn(mockPathBuilder);
