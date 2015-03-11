@@ -17,6 +17,11 @@ public class DocumentStoreCreateRequestConverter {
 	@Autowired
 	private ObjectFactory<DocumentStoreCreateRequest.Builder> requestBuilderFactory;
 	
+	/**
+	 * Convert controller form to create request object. 
+	 * @param form with new document details
+	 * @return request object
+	 */
 	public DocumentStoreCreateRequest convert(MarkdownDocumentForm form) {
 		return requestBuilderFactory.getObject()
 				.withAuthor(form.getAuthor())

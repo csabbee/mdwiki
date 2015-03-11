@@ -25,6 +25,11 @@ public class TextDocumentResponseConverter {
     @Autowired
     private ObjectFactory<MarkdownDocument.Builder> markdownDocumentBuilderFactory;
 
+    /**
+     * Converts from text file dao domain object to markdown document store domain object.
+     * @param textDocument to convert
+     * @return converted object or absent if document does not exist
+     */
     public Optional<MarkdownDocument> convert(Optional<TextDocument> textDocument) {
         Optional<MarkdownDocument> markdownDocument;
         if (textDocument.isPresent()) {

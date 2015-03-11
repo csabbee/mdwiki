@@ -18,8 +18,8 @@ public class DocumentStoreFindRequestConverter {
     
     /**
      * Convert controller parameters into request domain object.
-     * @param documentName
-     * @return
+     * @param documentName name of document to find
+     * @return request domain object
      */
     public DocumentStoreFindRequest convert(String documentName) {
         return documentStoreRequestBuilderFactory.getObject()

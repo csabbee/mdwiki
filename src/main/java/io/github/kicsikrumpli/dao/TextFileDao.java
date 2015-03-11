@@ -44,7 +44,7 @@ public class TextFileDao {
     /**
      * Writes text document to file.
      * @param document to write
-     * @throws IOException
+     * @throws IOException when write fails
      */
 	public void createFile(TextDocument document) throws IOException {
 		Files.write(document.getPath(), document.getLines(), Optional.fromNullable(document.getEncoding()).or(defaultCharset));
