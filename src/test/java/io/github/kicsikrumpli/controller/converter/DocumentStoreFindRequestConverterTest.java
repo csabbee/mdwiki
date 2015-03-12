@@ -19,7 +19,7 @@ import org.springframework.beans.factory.ObjectFactory;
  * @author kicsikrumpli1
  *
  */
-public class DocumentStoreRequestConverterTest {
+public class DocumentStoreFindRequestConverterTest {
 	private static final String MOCK_DOCUMENT_NAME = "mock-document-name";
 	
 	@InjectMocks
