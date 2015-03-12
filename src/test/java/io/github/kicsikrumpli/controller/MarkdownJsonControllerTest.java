@@ -5,9 +5,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.verify;
-
-import java.io.IOException;
-
 import io.github.kicsikrumpli.controller.converter.DocumentStoreCreateRequestConverter;
 import io.github.kicsikrumpli.controller.converter.DocumentStoreFindRequestConverter;
 import io.github.kicsikrumpli.controller.domain.MarkdownDocumentForm;
@@ -17,15 +14,15 @@ import io.github.kicsikrumpli.service.domain.DocumentStoreCreateRequest;
 import io.github.kicsikrumpli.service.domain.DocumentStoreFindRequest;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
 
+import java.io.IOException;
+
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.base.Optional;
 
@@ -152,7 +149,6 @@ public class MarkdownJsonControllerTest {
         
         // THEN
     }
-
 
     private MarkdownDocumentForm createMockMarkdownDocumentForm() {
         return new MarkdownDocumentForm()
