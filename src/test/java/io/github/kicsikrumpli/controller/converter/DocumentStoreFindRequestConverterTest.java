@@ -7,10 +7,8 @@ import io.github.kicsikrumpli.service.domain.DocumentStoreFindRequest;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.ObjectFactory;
 
@@ -26,18 +24,13 @@ public class DocumentStoreFindRequestConverterTest {
 	private DocumentStoreFindRequestConverter underTest;
 	@Mock
     private ObjectFactory<DocumentStoreFindRequest.Builder> mockDocumentBuilderFactory;
-	@Mock
-	private DocumentStoreFindRequest.Builder mockBuilder;
 
 	private String mockDocumentName = MOCK_DOCUMENT_NAME;
-	private DocumentStoreFindRequest mockDocumentStoreRequest = createMockDocumentStoreRequest();
 
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		given(mockDocumentBuilderFactory.getObject()).willReturn(mockBuilder);
-		given(mockBuilder.withDocumentName(Mockito.anyString())).willReturn(mockBuilder);
-		given(mockBuilder.build()).willReturn(mockDocumentStoreRequest);
+		given(mockDocumentBuilderFactory.getObject()).willReturn(new DocumentStoreFindRequest.Builder());
 	}
 	
 	@Test
@@ -53,19 +46,12 @@ public class DocumentStoreFindRequestConverterTest {
 	
 	@Test
 	public void testConvertShouldCopyDocumentNameIntoRequestObject() {
-		// GIVEN
-		ArgumentCaptor<String> documentName = ArgumentCaptor.forClass(String.class);
+		// GIVEN in setUp
 		
 		// WHEN
-		underTest.convert(mockDocumentName);
+        DocumentStoreFindRequest request = underTest.convert(mockDocumentName);
 		
 		// THEN
-		Mockito.verify(mockBuilder).withDocumentName(documentName.capture());
-		assertThat(documentName.getValue(), is(MOCK_DOCUMENT_NAME));
-
+		assertThat(request.getDocumentName(), is(MOCK_DOCUMENT_NAME));
 	}
-
-	private DocumentStoreFindRequest createMockDocumentStoreRequest() {
-		return new DocumentStoreFindRequest.Builder().withDocumentName(MOCK_DOCUMENT_NAME).build();
-	};
 }
