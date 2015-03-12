@@ -34,11 +34,10 @@ import com.google.common.base.Optional;
 @Controller
 public class MarkdownJsonController {
 	private static final Logger logger = LoggerFactory.getLogger(MarkdownJsonController.class);
-
 	@Autowired
 	private DocumentStore<MarkdownDocument> documentStore;
 	@Autowired
-	private DocumentStoreFindRequestConverter documentRequestConverter;
+	private DocumentStoreFindRequestConverter findDocumentRequestConverter;
 	@Autowired
 	private DocumentStoreCreateRequestConverter createDocumentRequestConveter;
 	
@@ -48,7 +47,7 @@ public class MarkdownJsonController {
 	@ResponseBody
 	public MarkdownDocument getMarkdownDocument(@PathVariable("document") String documentName) {
 		logger.info("retrieving document: {}", documentName);
-		Optional<MarkdownDocument> markdownDocument = documentStore.retrieveDocument(documentRequestConverter.convert(documentName));
+		Optional<MarkdownDocument> markdownDocument = documentStore.retrieveDocument(findDocumentRequestConverter.convert(documentName));
 		if (! markdownDocument.isPresent()) {
 		    throw new DocumentNotFoundException("No document by the name: " + documentName);
 		}
