@@ -1,5 +1,6 @@
 package io.github.kicsikrumpli.service.converter;
 
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 
 import io.github.kicsikrumpli.dao.domain.TextDocument;
@@ -8,6 +9,7 @@ import io.github.kicsikrumpli.service.strategy.MarkdownPathResolverStrategy;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,9 +19,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TextDocumentRequestConverter {
+    @Value("#{T(java.nio.charset.Charset).forName('${DEFAULT_ENCODING}')}")
+    private Charset defaultCharset;
     @Autowired
     private MarkdownPathResolverStrategy pathResolver;
-    @Autowired ObjectFactory<TextDocument.Builder> textDocumentBuilderFactory;
+    @Autowired
+    private ObjectFactory<TextDocument.Builder> textDocumentBuilderFactory;
 
     /**
      * Converts request object to text domain object.
@@ -32,6 +37,11 @@ public class TextDocumentRequestConverter {
 				.withAuthor(request.getAuthor())
 				.withPath(path)
 				.withLine(request.getContent())
+				.withEncoding(defaultCharset)
 				.build();
 	}
+
+    void setDefaultCharset(Charset defaultCharset) {
+        this.defaultCharset = defaultCharset;
+    }
 }
