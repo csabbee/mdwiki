@@ -81,6 +81,5 @@ public final class TextDocument {
         public TextDocument build() {
             return new TextDocument(this);
         }
-
     }
 }

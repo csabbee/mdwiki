@@ -1,7 +1,6 @@
 package io.github.kicsikrumpli.service;
 
-import java.io.IOException;
-
+import io.github.kicsikrumpli.dao.FileDaoWriteException;
 import io.github.kicsikrumpli.dao.TextFileDao;
 import io.github.kicsikrumpli.dao.domain.TextDocument;
 import io.github.kicsikrumpli.service.converter.PathRequestConverter;
@@ -43,7 +42,7 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
 	public void storeDocument(DocumentStoreCreateRequest documentRequest) {
     	try {
 			fileDao.createFile(textDocumentRequestConverter.convert(documentRequest));
-		} catch (IOException e) {
+		} catch (FileDaoWriteException e) {
 			throw new CannotWriteDocumentException(e);
 		}
 	}

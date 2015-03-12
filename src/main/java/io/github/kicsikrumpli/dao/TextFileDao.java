@@ -46,9 +46,18 @@ public class TextFileDao {
      * @param document to write
      * @throws IOException when write fails
      */
-	public void createFile(TextDocument document) throws IOException {
-		Files.write(document.getPath(), document.getLines(), Optional.fromNullable(document.getEncoding()).or(defaultCharset));
+	public void createFile(TextDocument document) throws FileDaoWriteException {
+		try {
+            doWrite(document.getPath(), document.getLines(), Optional.fromNullable(document.getEncoding()).or(defaultCharset));
+        } catch (IOException e) {
+            throw new FileDaoWriteException(e);
+        }
 	}
+
+	@VisibleForTesting
+    void doWrite(Path path, List<String> lines, Charset charset) throws IOException {
+        Files.write(path, lines, charset);
+    }
 
     @VisibleForTesting
     List<String> readAllLines(Path path) {
@@ -86,9 +95,5 @@ public class TextFileDao {
 
     void setDefaultAuthor(String defaultAuthor) {
         this.defaultAuthor = defaultAuthor;
-    }
-
-    void setTextDocumentBuilderFactory(ObjectFactory<TextDocument.Builder> textDocumentBuilderFactory) {
-        this.textDocumentBuilderFactory = textDocumentBuilderFactory;
     }
 }
