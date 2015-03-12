@@ -5,8 +5,8 @@ package io.github.kicsikrumpli.service;
  * @author kicsikrumpli1
  *
  */
-public class CannotWriteDocumentException extends RuntimeException {
-	public CannotWriteDocumentException(Throwable cause) {
+public class CannotCreateDocumentException extends RuntimeException {
+	public CannotCreateDocumentException(Throwable cause) {
 		super(cause);
 	}
 }

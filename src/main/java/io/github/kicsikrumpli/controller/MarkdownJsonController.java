@@ -3,7 +3,7 @@ package io.github.kicsikrumpli.controller;
 import io.github.kicsikrumpli.controller.converter.DocumentStoreCreateRequestConverter;
 import io.github.kicsikrumpli.controller.converter.DocumentStoreFindRequestConverter;
 import io.github.kicsikrumpli.controller.domain.MarkdownDocumentForm;
-import io.github.kicsikrumpli.service.CannotWriteDocumentException;
+import io.github.kicsikrumpli.service.CannotCreateDocumentException;
 import io.github.kicsikrumpli.service.DocumentStore;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
 
@@ -73,9 +73,9 @@ public class MarkdownJsonController {
 	}
 	
 	@ResponseStatus(value = HttpStatus.METHOD_FAILURE)
-	@ExceptionHandler(CannotWriteDocumentException.class)
+	@ExceptionHandler(CannotCreateDocumentException.class)
 	@ResponseBody
-	public Map<String, String> handleCannotWriteDocument(CannotWriteDocumentException e) {
+	public Map<String, String> handleCannotWriteDocument(CannotCreateDocumentException e) {
 	    return Collections.singletonMap("error", e.getMessage());
 	}
 

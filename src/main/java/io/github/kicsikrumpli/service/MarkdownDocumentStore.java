@@ -43,7 +43,7 @@ public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
     	try {
 			fileDao.createFile(textDocumentRequestConverter.convert(documentRequest));
 		} catch (FileDaoWriteException e) {
-			throw new CannotWriteDocumentException(e);
+			throw new CannotCreateDocumentException(e);
 		}
 	}
 }

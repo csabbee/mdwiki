@@ -8,7 +8,7 @@ import static org.mockito.Mockito.verify;
 import io.github.kicsikrumpli.controller.converter.DocumentStoreCreateRequestConverter;
 import io.github.kicsikrumpli.controller.converter.DocumentStoreFindRequestConverter;
 import io.github.kicsikrumpli.controller.domain.MarkdownDocumentForm;
-import io.github.kicsikrumpli.service.CannotWriteDocumentException;
+import io.github.kicsikrumpli.service.CannotCreateDocumentException;
 import io.github.kicsikrumpli.service.DocumentStore;
 import io.github.kicsikrumpli.service.domain.DocumentStoreCreateRequest;
 import io.github.kicsikrumpli.service.domain.DocumentStoreFindRequest;
@@ -138,11 +138,11 @@ public class MarkdownJsonControllerTest {
         // THEN should pass
     }
     
-    @Test(expected = CannotWriteDocumentException.class)
+    @Test(expected = CannotCreateDocumentException.class)
     public void testCreateMarkdowDocumentShouldThrowWhenDocumentCreationFails() {
         // GIVEN
         given(mockCreateDocumentRequestConveter.convert(mockMarkdownDocumentForm)).willReturn(mockDocumentStoreCreateRequest);
-        willThrow(new CannotWriteDocumentException(new IOException())).given(mockDocumentStore).storeDocument(mockDocumentStoreCreateRequest);
+        willThrow(new CannotCreateDocumentException(new IOException())).given(mockDocumentStore).storeDocument(mockDocumentStoreCreateRequest);
         
         // WHEN
         underTest.createMarkdownDocument(mockMarkdownDocumentForm);
