@@ -1,35 +1,49 @@
 package io.github.kicsikrumpli.service;
 
+import io.github.kicsikrumpli.dao.FileDaoWriteException;
 import io.github.kicsikrumpli.dao.TextFileDao;
 import io.github.kicsikrumpli.dao.domain.TextDocument;
-import io.github.kicsikrumpli.service.converter.TextDocumentConverter;
-import io.github.kicsikrumpli.service.domain.DocumentStoreRequest;
+import io.github.kicsikrumpli.service.converter.PathRequestConverter;
+import io.github.kicsikrumpli.service.converter.TextDocumentRequestConverter;
+import io.github.kicsikrumpli.service.converter.TextDocumentResponseConverter;
+import io.github.kicsikrumpli.service.domain.DocumentStoreCreateRequest;
+import io.github.kicsikrumpli.service.domain.DocumentStoreFindRequest;
 import io.github.kicsikrumpli.service.domain.MarkdownDocument;
-import io.github.kicsikrumpli.service.strategy.MarkdownPathResolverStrategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 
+/**
+ * Markdown document store - find, crate.
+ * @author kicsikrumpli1
+ *
+ */
 @Component
 public class MarkdownDocumentStore implements DocumentStore<MarkdownDocument> {
     @Autowired
     private TextFileDao fileDao;
     @Autowired
-    private MarkdownPathResolverStrategy pathResolver;
+    private PathRequestConverter pathRequestConverter; 
     @Autowired
-    private TextDocumentConverter textDocumentConverter;
+    private TextDocumentResponseConverter textDocumentResponseConverter;
+    @Autowired
+    private TextDocumentRequestConverter textDocumentRequestConverter;
 
 	@Override
-	public Optional<MarkdownDocument> retrieveDocument(DocumentStoreRequest documentRequest) {
-	    Optional<TextDocument> textFile = fileDao.readFile(pathResolver.resolvePath(documentRequest));
-	    Optional<MarkdownDocument> document = textDocumentConverter.convert(textFile);
+	public Optional<MarkdownDocument> retrieveDocument(DocumentStoreFindRequest documentRequest) {
+	    Optional<TextDocument> textFile = fileDao.readFile(pathRequestConverter.convert(documentRequest));
+	    Optional<MarkdownDocument> document = textDocumentResponseConverter.convert(textFile);
 		return document;
 	}
 
     @Override
-	public void storeDocument(MarkdownDocument document) {
-		throw new UnsupportedOperationException("store operation not yet implemented");
+	public void storeDocument(DocumentStoreCreateRequest documentRequest) {
+    	try {
+			fileDao.createFile(textDocumentRequestConverter.convert(documentRequest));
+		} catch (FileDaoWriteException e) {
+			throw new CannotCreateDocumentException(e);
+		}
 	}
 }

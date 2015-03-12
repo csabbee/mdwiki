@@ -1,6 +1,7 @@
 package io.github.kicsikrumpli.dao.domain;
 
 import java.nio.charset.Charset;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +19,13 @@ import com.google.common.collect.ImmutableList;
 public final class TextDocument {
     private String author;
     private List<String> lines;
-    private String name;
+    private Path path;
     private Charset encoding;
     
     TextDocument(Builder builder) {
         author = builder.author;
         lines = ImmutableList.copyOf(builder.lines);
-        name = builder.name;
+        path = builder.path;
         encoding = builder.encoding;
     }
 
@@ -36,8 +37,8 @@ public final class TextDocument {
         return lines;
     }
 
-    public String getName() {
-        return name;
+    public Path getPath() {
+        return path;
     }
 
     public Charset getEncoding() {
@@ -49,17 +50,17 @@ public final class TextDocument {
     public static class Builder {
         private String author;
         private List<String> lines = new ArrayList<String>();
-        private String name;
-        Charset encoding;
+        private Charset encoding;
+		private Path path;
         
         public Builder withEncoding(Charset encoding) {
             this.encoding = encoding;
             return this;
         }
         
-        public Builder withName(String name) {
-            this.name = name;
-            return this;
+        public Builder withPath(Path path) {
+        	this.path = path;
+        	return this;
         }
         
         public Builder withLine(String line) {

@@ -1,7 +1,5 @@
 package io.github.kicsikrumpli.service.strategy;
 
-import io.github.kicsikrumpli.service.domain.DocumentStoreRequest;
-
 import java.nio.file.Path;
 
 /**
@@ -12,9 +10,9 @@ import java.nio.file.Path;
 public interface PathResolverStrategy {
 
     /**
-     * Resolves {@link Path} from {@link DocumentStoreRequest}
-     * @param documentRequest request object
+     * Resolves {@link Path} for file name.
+     * @param filaName name of file
      * @return resolved path
      */
-    Path resolvePath(DocumentStoreRequest documentRequest);
+    Path resolvePath(String filaName);
 }

@@ -1,7 +1,7 @@
 package io.github.kicsikrumpli.dao;
 
 /**
- * Runtime exception thrown when file access fails.
+ * Runtime exception thrown when reading of file fails.
  * @author daniel
  *
  */

@@ -33,12 +33,30 @@ public class TextFileDao {
     /**
      * Reads contents of a file into a string.
      * Throws IOException wrapped in runtime exception.
-     * @param fileName name of file to read relative to default root set by configuration.
+     * @param path of file to read relative to default root set by configuration.
      * @return optional of file contents or absent if file does not exist
      */
     public Optional<TextDocument> readFile(Path path) {
         Optional<List<String>> lines = Optional.fromNullable(readAllLines(path));
-        return createWithContent(lines, path.getFileName().toString());
+        return buildTextDocument(lines, path);
+    }
+    
+    /**
+     * Writes text document to file.
+     * @param document to write
+     * @throws IOException when write fails
+     */
+	public void createFile(TextDocument document) throws FileDaoWriteException {
+		try {
+            doWrite(document.getPath(), document.getLines(), Optional.fromNullable(document.getEncoding()).or(defaultCharset));
+        } catch (IOException e) {
+            throw new FileDaoWriteException(e);
+        }
+	}
+
+	@VisibleForTesting
+    void doWrite(Path path, List<String> lines, Charset charset) throws IOException {
+        Files.write(path, lines, charset);
     }
 
     @VisibleForTesting
@@ -52,22 +70,22 @@ public class TextFileDao {
         return lines;
     }
 
-    private Optional<TextDocument> createWithContent(Optional<List<String>> lines, String fileName) {
+    private Optional<TextDocument> buildTextDocument(Optional<List<String>> lines, Path path) {
         Optional<TextDocument> textDocument;
         if (lines.isPresent()) {
-            textDocument = Optional.of(doCreate(lines.get(), fileName));
+            textDocument = Optional.of(doBuild(lines.get(), path));
         } else {
             textDocument = Optional.absent();
         }
         return textDocument;
     }
 
-    private TextDocument doCreate(List<String> lines, String fileName) {
+    private TextDocument doBuild(List<String> lines, Path path) {
         return textDocumentBuilderFactory.getObject()
                 .withLines(lines)
                 .withAuthor(defaultAuthor)
                 .withEncoding(defaultCharset)
-                .withName(fileName)
+                .withPath(path)
                 .build();
     }
     
@@ -77,9 +95,5 @@ public class TextFileDao {
 
     void setDefaultAuthor(String defaultAuthor) {
         this.defaultAuthor = defaultAuthor;
-    }
-
-    void setTextDocumentBuilderFactory(ObjectFactory<TextDocument.Builder> textDocumentBuilderFactory) {
-        this.textDocumentBuilderFactory = textDocumentBuilderFactory;
     }
 }

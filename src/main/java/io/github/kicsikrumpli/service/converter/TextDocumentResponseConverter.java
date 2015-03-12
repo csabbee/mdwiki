@@ -19,12 +19,17 @@ import com.google.common.base.Optional;
  *
  */
 @Component
-public class TextDocumentConverter {
+public class TextDocumentResponseConverter {
     @Value("${LINE_SEPARATOR:\n}")
     private String defaultLineSeparator;
     @Autowired
     private ObjectFactory<MarkdownDocument.Builder> markdownDocumentBuilderFactory;
 
+    /**
+     * Converts from text file dao domain object to markdown document store domain object.
+     * @param textDocument to convert
+     * @return converted object or absent if document does not exist
+     */
     public Optional<MarkdownDocument> convert(Optional<TextDocument> textDocument) {
         Optional<MarkdownDocument> markdownDocument;
         if (textDocument.isPresent()) {
@@ -38,7 +43,7 @@ public class TextDocumentConverter {
     private MarkdownDocument doConvert(TextDocument documentToConvert) {
         return markdownDocumentBuilderFactory.getObject()
                 .withAuthor(documentToConvert.getAuthor())
-                .withName(documentToConvert.getName())
+                .withName(documentToConvert.getPath().getFileName().toString())
                 .withContent(convertContent(documentToConvert.getLines()))
                 .build();
     }
