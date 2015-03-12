@@ -16,15 +16,18 @@ Simple wiki based on locally stored markdown files.
 
 ## Usage
 
-GET `mdwiki/markdown/<document>.json` where `document` is without extension.
+- GET `mdwiki/markdown/<document>.json` where `document` is without extension.
+- POST `mdwiki/markdown` with body
 
-POST `mdwiki/markdown` with body
+        {
+          "author" : <author>,
+          "name" : <filename>,
+          "content" : <file-content>
+        }
 
-    {
-      "author" : <author>,
-      "name" : <filename>,
-      "content" : <file-content>
-    }
+    curl
+
+        curl -X POST -H "Content-Type: application/json" -d '{"name":"post-test","author":"post-author","content":"post-content"}' http://localhost:8080/mdwiki/markdown
 
 ### Project Defaults
 
