@@ -11,7 +11,7 @@ Simple wiki based on locally stored markdown files.
 - add embedded Jetty server to make standalone app
 - view markdown documents rendered as html
 - version control md documents with git
-- integrate solr to provide search capabilities
+- integrate ~~solr~~ Lucene to provide search capabilities
 - integrate Spring Security
 
 ## Usage
@@ -44,3 +44,4 @@ override with `-D<parameter>=<value>` at startup
 ## Notes
 
 - [Spring Data Solr](http://docs.spring.io/spring-data/solr/docs/1.4.0.RC1/reference/html/)
+- [JGit cookbook](https://github.com/centic9/jgit-cookbook)
