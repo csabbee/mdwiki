@@ -38,6 +38,9 @@
       "url": "https://github.com/csabbee"
     }
   ],
+  "scripts": {
+    "postinstall": "jspm install"
+  },
   "jspm": {
     "directories": {
       "lib": ".",
