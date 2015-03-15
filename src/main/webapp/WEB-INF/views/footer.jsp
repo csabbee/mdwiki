@@ -2,6 +2,6 @@
 
 <!-- build:js main.js -->
 <!-- myInject:js -->
-<script language="JavaScript" src="<c:url value="/resources/js/build.js"/>"></script>
+<script language="JavaScript" src="<c:url value="/resources/js/mdwiki.js"/>"></script>
 <!-- endMyInject -->
 <!-- endbuild -->

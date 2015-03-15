@@ -9,8 +9,9 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 
-<div ng-app="mdwiki">
-	<div ui-view></div>
+<div ng-app="mdwiki" class="row">
+    <div ui-view="navigationPane" class="navigation"></div>
+	<div ui-view="content" class="content"></div>
 </div>
 
 <jsp:include page="footer.jsp"/>
