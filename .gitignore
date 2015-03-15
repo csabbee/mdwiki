@@ -3,4 +3,11 @@
 .settings/
 .springBeans
 target/
-
+.idea
+*.iml
+node_modules/
+bower_components/
+jspm_packages/
+build.js*
+htmltemplates.js
+src/main/webapp/resources

@@ -1,6 +1,7 @@
 # mdwiki
 Simple wiki based on locally stored markdown files.
 
+
 ## Features
 
 - retrieve markdown files in json with GET
@@ -45,3 +46,23 @@ override with `-D<parameter>=<value>` at startup
 
 - [Spring Data Solr](http://docs.spring.io/spring-data/solr/docs/1.4.0.RC1/reference/html/)
 - [JGit cookbook](https://github.com/centic9/jgit-cookbook)
+
+
+## Running app from command line
+
+    mvn tomcat:run
+
+This will install every dependencies both for the backend and frontend.
+
+Afterwards you can reach the app in the browser on [localhost:8080/kicsikrumpli](http://localhost:8080/kicsikrumpli)
+
+## Developing the frontend
+The following commands should be given out in the **webappsrc** folder
+
+    npm install
+    gulp watch
+
+Upon changing/adding any javascript, html file in the **app** folder it will bundle them together into the **build.js** file.
+
+## Reading materials
+* [Angular 1.x + ES6 modules](http://engineering.iconnect360.com/angularjs/)

@@ -1,0 +1,54 @@
+{
+  "name": "markdown-wiki",
+  "version": "0.0.1",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-load-plugins": "^0.8.1",
+    "gulp-clean": "^0.3.1",
+    "gulp-inject": "^1.2.0",
+    "jspm": "^0.14.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-size": "^1.2.1",
+    "require-dir": "^0.1.0",
+    "gulp-angular-templatecache": "^1.5.0",
+    "gulp-minify-html": "^1.0.0",
+    "gulp-wrap": "^0.11.0"
+  },
+  "keywords": [
+    "spring-mvc",
+    "angular",
+    "babel"
+  ],
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "author": {
+    "name": "Daniel David Kovacs",
+    "email": "kicsikrumpli@gmail.com",
+    "url": "https://github.com/kicsikrumpli"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kicsikrumpli/mdwiki"
+  },
+  "contributors": [
+    {
+      "name": "Csaba Valyi",
+      "email": "csaba.valy1@gmail.com",
+      "url": "https://github.com/csabbee"
+    }
+  ],
+  "scripts": {
+    "postinstall": "jspm install"
+  },
+  "jspm": {
+    "directories": {
+      "lib": ".",
+      "packages": "jspm_packages"
+    },
+    "dependencies": {
+      "angular": "github:angular/bower-angular@^1.3.14",
+      "angular-ui-router": "github:angular-ui/ui-router@^0.2.13"
+    }
+  }
+}
