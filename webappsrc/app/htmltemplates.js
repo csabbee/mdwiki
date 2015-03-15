@@ -1,1 +1,0 @@
-export function caching() { angular.module("htmlTemplates", []).run(["$templateCache", function($templateCache) {$templateCache.put("main/main.html","<div><h2>Main view</h2><h3>{{message}}</h3></div>");}]); }
