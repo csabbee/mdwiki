@@ -15,12 +15,19 @@ angular.module('mdwiki', [
 ]).config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
     'use strict';
 
-    $urlRouterProvider.otherwise('/main');
+    $urlRouterProvider.otherwise('/');
 
-    $stateProvider.state('main', {
-        url: '/main',
-        templateUrl: 'main/main.html',
-        controller: 'MainController',
-        controllerAs: 'MainController'
+    $stateProvider.state('home', {
+        url: '/',
+        views: {
+            "navigationPane": {
+                templateUrl: "navigation/navigationPanel.html"
+            },
+            "content": {
+                templateUrl: 'main/main.html',
+                controller: 'MainController',
+                controllerAs: 'MainController'
+            }
+        }
     })
 }]);
