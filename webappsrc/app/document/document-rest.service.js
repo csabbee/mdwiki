@@ -7,7 +7,7 @@ class DocumentRest {
         this.$http = $http;
         this.$q = $q;
         this.$log = $log;
-        baseUrl.set(this, RestUrls.base+'/markdown/');
+        baseUrl.set(this, RestUrls.base+RestUrls.markdown+'/');
     }
 
     // TODO: server side or client side rendering?
