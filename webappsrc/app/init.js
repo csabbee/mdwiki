@@ -31,5 +31,16 @@ angular.module('mdwiki', [
                 controllerAs: 'MainController'
             }
         }
-    })
+    }).state('home.document', {
+        url: 'document/:document',
+        templateUrl: 'document/document.html',
+        controller: 'DocumentController',
+        controllerAs: 'DocumentController',
+        resolve: {
+            compiledMarkdownDocument: ['$stateParams', 'DocumentRest',
+                ($stateParams, DocumentRest) => {
+                    return DocumentRest.getDocument($stateParams.document);
+                }]
+        }
+    });
 }]);
