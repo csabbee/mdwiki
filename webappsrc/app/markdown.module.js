@@ -2,6 +2,5 @@
 
 import { MainController } from './main/main.controller'
 
-let ctrl = MainController;
-
-export { ctrl };
+export default angular.module('mdwiki.intangibles', [])
+    .controller('MainController', MainController);
