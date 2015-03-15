@@ -1,5 +1,5 @@
 {
-  "excludeFiles": ["node_modules/**", "jspm_packages/**", "portfolioApp/portfolioHtmlcache.js", "configPage/configPageHtmlcache.js", "gulpfile.js"],
+  "excludeFiles": ["node_modules/**", "jspm_packages/**", "app/htmltemplates.js","gulpfile.js"],
   "esnext": true,
   "disallowSpacesInsideObjectBrackets": true,
   "disallowDanglingUnderscores": true,
