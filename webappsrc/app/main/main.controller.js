@@ -6,11 +6,11 @@ class MainController {
         this.init();
     }
 
-    init(){
+    init() {
         this.$scope.message = 'Using Angular, with ES6 modules!';
     }
 }
 
 MainController.$inject = ['$scope'];
 
-export { MainController }
+export { MainController };

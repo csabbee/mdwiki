@@ -8,7 +8,7 @@ import './markdown.module';
  */
 caching();
 
-var mdwiki = angular.module('mdwiki',[
+angular.module('mdwiki', [
     'ui.router',
     'htmlTemplates',
     'mdwiki.intangibles'
