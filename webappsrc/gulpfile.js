@@ -10,11 +10,11 @@ require('require-dir')('./gulp');
 var paths = {
     mainFolder: './app',
     appJs: 'app/**/*.js',
-    appCss: 'app/**/*.css',
+    appCss: 'app/**/{*.css, *.css.map}',
     appHtml: 'app/**/*.html',
     buildJs: './build.js*',
-    dist_Js: '../src/main/webapp/resources/js',
-    dist_Css: '../src/main/webapp/resources/css',
+    distJs: '../src/main/webapp/resources/js',
+    distCss: '../src/main/webapp/resources/css',
     jsp: '../src/main/webapp/WEB-INF/views',
     ignorePath: '../src/main/webapp'
 };
@@ -33,36 +33,31 @@ function handleCallback(err, stdout) {
     }
     if(stdout){
         console.log(stdout);
-        gulp.start('copyJs');
+        gulp.start('copyCss');
     }
 }
 
 gulp.task('jspm', function () {
-    return exec('jspm bundle-sfx app/init', handleCallback);
+    return exec('jspm bundle-sfx app/init '+paths.distJs+'/mdwiki.js', handleCallback);
 });
 
 gulp.task('cleanJs', function () {
-    return gulp.src([paths.dist_Js+'/**/*.js*', paths.buildJs], {read: false})
+    return gulp.src([paths.distJs+'/**/*.js*', paths.buildJs], {read: false})
         .pipe(plugins.clean({force: true}));
 });
 gulp.task('cleanCss', function () {
-    return gulp.src([paths.dist_Css+'/**/*.css'], {read: false})
+    return gulp.src([paths.distCss+'/**/*.css'], {read: false})
         .pipe(plugins.clean({force: true}));
-});
-
-gulp.task('copyJs', function () {
-    return gulp.src(paths.buildJs)
-        .pipe(gulp.dest(paths.dist_Js))
 });
 
 gulp.task('copyCss', function () {
     return gulp.src(paths.appCss)
-        .pipe(gulp.dest(paths.dist_Css));
+        .pipe(gulp.dest(paths.distCss));
 });
 
 gulp.task('indexCss', function () {
     var target = gulp.src(paths.jsp+'/**/header.jsp');
-    var sourcesCss = gulp.src(paths.dist_Css+'/**/*.css', {read: false});
+    var sourcesCss = gulp.src(paths.distCss+'/**/*.css', {read: false});
 
     return target
         .pipe(plugins.inject(sourcesCss, {
@@ -78,7 +73,7 @@ gulp.task('indexCss', function () {
 
 gulp.task('indexJs', function () {
     var target = gulp.src(paths.jsp+'/**/*.jsp');
-    var sourcesJs = gulp.src(paths.dist_Js+'/**/*.js', {read: false});
+    var sourcesJs = gulp.src(paths.distJs+'/**/*.js', {read: false});
 
     return target
         .pipe(plugins.inject(sourcesJs, {
@@ -107,8 +102,8 @@ gulp.task('htmlcache', function () {
 gulp.task('watch', function () {
     gulp.watch('./bower.json', ['bower']);
 
-    gulp.watch(paths.dist_Js+'/**/*.js', ['indexJs']);
-    gulp.watch(paths.dist_Css+'/**/*.css', ['indexCss']);
+    gulp.watch(paths.distJs+'/**/*.js', ['indexJs']);
+    gulp.watch(paths.distCss+'/**/*.css', ['indexCss']);
 
     gulp.watch(paths.appHtml, ['htmlcache']);
 
