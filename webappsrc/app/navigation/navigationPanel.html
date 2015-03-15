@@ -1,1 +1,6 @@
-<p>the navigation panel</p>
+<p>The Navigation Panel</p>
+<ul>
+    <li ng-repeat="link in NavigationController.links">
+        <a ui-sref="home.document({document: link})">{{link}}</a>
+    </li>
+</ul>

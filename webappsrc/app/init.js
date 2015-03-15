@@ -21,7 +21,9 @@ angular.module('mdwiki', [
         url: '/',
         views: {
             "navigationPane": {
-                templateUrl: "navigation/navigationPanel.html"
+                templateUrl: "navigation/navigationPanel.html",
+                controller: 'NavigationController',
+                controllerAs: 'NavigationController'
             },
             "content": {
                 templateUrl: 'main/main.html',
