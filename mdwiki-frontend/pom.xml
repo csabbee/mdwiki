@@ -27,36 +27,36 @@
             <configuration>
               <target name="building">
                 <echo>
-                  ---------------------------------------------------
-                  --              NPM INSTALL                      --
-                  ---------------------------------------------------
+---------------------------------------------------
+--              NPM INSTALL                      --
+---------------------------------------------------
                 </echo>
                 <!-- windows -->
-                <exec executable="cmd" dir="${project.basedir}/webappsrc" osfamily="windows" failonerror="true">
+                <exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
                   <arg line="/c npm config set color false"/>
                 </exec>
-                <exec executable="cmd" dir="${project.basedir}/webappsrc" osfamily="windows" failonerror="true">
+                <exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
                   <arg line="/c npm install"/>
                 </exec>
                 <!-- unix -->
-                <exec executable="bash" dir="${project.basedir}/webappsrc" osfamily="unix" failonerror="true">
+                <exec executable="bash" dir="${project.basedir}" osfamily="unix" failonerror="true">
                   <arg line="-c 'npm config set color false'"/>
                 </exec>
-                <exec executable="bash" dir="${project.basedir}/webappsrc" osfamily="unix" failonerror="true">
+                <exec executable="bash" dir="${project.basedir}" osfamily="unix" failonerror="true">
                   <arg line="-c 'npm install'"/>
                 </exec>
                 <echo>
-                  ---------------------------------------------------
-                  --                     GULP                      --
-                  ---------------------------------------------------
+---------------------------------------------------
+--                     GULP                      --
+---------------------------------------------------
                 </echo>
                 <!-- windows -->
-                <exec executable="cmd" dir="${project.basedir}/webappsrc" osfamily="windows" failonerror="true">
-                  <arg line="/c gulp build --no-color"/>
+                <exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
+                  <arg line="/c gulp build"/>
                 </exec>
                 <!-- unix -->
-                <exec executable="bash" dir="${project.basedir}/webappsrc" osfamily="unix" failonerror="true">
-                  <arg line=" -c 'gulp build --no-color '"/>
+                <exec executable="bash" dir="${project.basedir}" osfamily="unix" failonerror="true">
+                  <arg line=" -c 'gulp build'"/>
                 </exec>
               </target>
             </configuration>

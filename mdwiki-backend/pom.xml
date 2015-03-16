@@ -20,6 +20,14 @@
 
 
   <dependencies>
+    <!-- Frontend -->
+    <dependency>
+      <groupId>io.github</groupId>
+      <artifactId>mdwiki-frontend</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+
+
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
