@@ -12,11 +12,8 @@ var paths = {
     appJs: 'app/**/*.js',
     appCss: 'app/**/{*.css, *.css.map}',
     appHtml: 'app/**/*.html',
-    buildJs: './build.js*',
-    distJs: '../src/main/webapp/resources/js',
-    distCss: '../src/main/webapp/resources/css',
-    jsp: '../src/main/webapp/WEB-INF/views',
-    ignorePath: '../src/main/webapp'
+    distDir: './dist',
+    buildDir: '../mdwiki-backend/src/main/webapp/resources'
 };
 
 var htmlTemplateCacheOptions = {
@@ -38,53 +35,21 @@ function handleCallback(err, stdout) {
 }
 
 gulp.task('jspm', function () {
-    return exec('jspm bundle-sfx app/init '+paths.distJs+'/mdwiki.js', handleCallback);
+    return exec('jspm bundle-sfx app/init '+paths.buildDir+'/scripts/mdwiki.js', handleCallback);
 });
 
 gulp.task('cleanJs', function () {
-    return gulp.src([paths.distJs+'/**/*.js*', paths.buildJs], {read: false})
+    return gulp.src([paths.distDir+'/**/*.js*'], {read: false})
         .pipe(plugins.clean({force: true}));
 });
 gulp.task('cleanCss', function () {
-    return gulp.src([paths.distCss+'/**/*.css'], {read: false})
+    return gulp.src([paths.distDir+'/**/*.css'], {read: false})
         .pipe(plugins.clean({force: true}));
 });
 
 gulp.task('copyCss', function () {
     return gulp.src(paths.appCss)
-        .pipe(gulp.dest(paths.distCss));
-});
-
-gulp.task('indexCss', function () {
-    var target = gulp.src(paths.jsp+'/**/header.jsp');
-    var sourcesCss = gulp.src(paths.distCss+'/**/*.css', {read: false});
-
-    return target
-        .pipe(plugins.inject(sourcesCss, {
-            ignorePath: paths.ignorePath,
-            starttag: '<!-- myInject:css -->',
-            endtag: '<!-- endMyInject -->',
-            transform: function (filepath) {
-                return '<link rel="stylesheet" href="<c:url value=\"' + filepath + '\"/>"/>';
-            }
-        }))
-        .pipe(gulp.dest(paths.jsp));
-});
-
-gulp.task('indexJs', function () {
-    var target = gulp.src(paths.jsp+'/**/*.jsp');
-    var sourcesJs = gulp.src(paths.distJs+'/**/*.js', {read: false});
-
-    return target
-        .pipe(plugins.inject(sourcesJs, {
-            ignorePath: paths.ignorePath,
-            starttag: '<!-- myInject:js -->',
-            endtag: '<!-- endMyInject -->',
-            transform: function (filepath) {
-                return '<script language="JavaScript" src="<c:url value=\"' + filepath + '\"/>"></script>';
-            }
-        }))
-        .pipe(gulp.dest(paths.jsp));
+        .pipe(gulp.dest(paths.distDir));
 });
 
 gulp.task('htmlcache', function () {
@@ -100,10 +65,6 @@ gulp.task('htmlcache', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./bower.json', ['bower']);
-
-    gulp.watch(paths.distJs+'/**/*.js', ['indexJs']);
-    gulp.watch(paths.distCss+'/**/*.css', ['indexCss']);
 
     gulp.watch(paths.appHtml, ['htmlcache']);
 

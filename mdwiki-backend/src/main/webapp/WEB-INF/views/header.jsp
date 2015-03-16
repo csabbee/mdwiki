@@ -5,6 +5,6 @@
   <!-- endinject -->
 
   <!-- myInject:css -->
-  <link rel="stylesheet" href="<c:url value="/resources/css/styles/mdwiki.css"/>"/>
+  <link rel="stylesheet" href="<c:url value="/resources/styles/mdwiki.css"/>"/>
   <!-- endMyInject -->
 </head>

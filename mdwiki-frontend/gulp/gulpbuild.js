@@ -8,7 +8,7 @@ var plugins = require('gulp-load-plugins')({
 });
 
 var paths = {
-    distJs: '../src/main/webapp/resources/js'
+    distDir: './dist'
 };
 
 function handleCallback(err, stdout) {
@@ -17,11 +17,9 @@ function handleCallback(err, stdout) {
     }
     if(stdout) {
         console.log(stdout);
-        gulp.start('indexJs');
-        gulp.start('indexCss');
     }
 }
 
 gulp.task('build', ['htmlcache', 'copyCss'], function () {
-    return exec('jspm bundle-sfx app/init ' + paths.distJs+'/mdwiki.js --minify --skip-source-maps', handleCallback);
+    return exec('jspm bundle-sfx app/init ' + paths.distDir+'/scripts/mdwiki.js --minify --skip-source-maps', handleCallback);
 });
