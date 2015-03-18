@@ -11,63 +11,13 @@
 
   <artifactId>mdwiki-frontend</artifactId>
 
-  <properties>
-    <maven-antrun-version>1.7</maven-antrun-version>
-  </properties>
-
   <build>
     <plugins>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
-        <version>${maven-antrun-version}</version>
-        <executions>
-          <execution>
-            <phase>generate-sources</phase>
-            <configuration>
-              <target name="building">
-                <echo>
----------------------------------------------------
---              NPM INSTALL                      --
----------------------------------------------------
-                </echo>
-                <!-- windows -->
-                <exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
-                  <arg line="/c npm config set color false"/>
-                </exec>
-                <exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
-                  <arg line="/c npm install"/>
-                </exec>
-                <!-- unix -->
-                <exec executable="bash" dir="${project.basedir}" osfamily="unix" failonerror="true">
-                  <arg line="-c 'npm config set color false'"/>
-                </exec>
-                <exec executable="bash" dir="${project.basedir}" osfamily="unix" failonerror="true">
-                  <arg line="-c 'npm install'"/>
-                </exec>
-                <echo>
----------------------------------------------------
---                     GULP                      --
----------------------------------------------------
-                </echo>
-                <!-- windows -->
-                <exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
-                  <arg line="/c gulp build"/>
-                </exec>
-                <!-- unix -->
-                <exec executable="bash" dir="${project.basedir}" osfamily="unix" failonerror="true">
-                  <arg line=" -c 'gulp build'"/>
-                </exec>
-              </target>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>2.7</version>
         <executions>
           <execution>
             <id>copy-resources</id>
