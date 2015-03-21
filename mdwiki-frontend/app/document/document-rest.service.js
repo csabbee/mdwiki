@@ -16,10 +16,9 @@ class DocumentRest {
         var self = this;
 
         this.$http({
-            method: 'JSONP',
+            method: 'GET',
             url: baseUrl.get(this) + name +'.json'
         }).success(document => {
-            self.$log.info(name);
             deferResult.resolve(document);
         }).error((data, status) => {
             self.$log.error(data);
