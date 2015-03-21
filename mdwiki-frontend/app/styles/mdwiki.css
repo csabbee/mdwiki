@@ -15,3 +15,36 @@
     width: 80%;
     float: left;
 }
+
+dt {
+    font-weight: bold;
+}
+
+code {
+    background-color: #eee;
+}
+
+pre {
+    line-height: 135%;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    padding-left: 6px;
+    padding-right: 2px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+blockquote {
+    background-color: #d8deea;
+    border: 1px solid #c6d1e7;
+    border-radius: 6px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+blockquote code, blockquote pre {
+    background-color: #cad2e4;
+    border-style: none;
+}

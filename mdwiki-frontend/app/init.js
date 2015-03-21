@@ -37,7 +37,7 @@ angular.module('mdwiki', [
         controller: 'DocumentController',
         controllerAs: 'DocumentController',
         resolve: {
-            compiledMarkdownDocument: ['$stateParams', 'DocumentRest',
+            markdownDocument: ['$stateParams', 'DocumentRest',
                 ($stateParams, DocumentRest) => {
                     return DocumentRest.getDocument($stateParams.document);
                 }]

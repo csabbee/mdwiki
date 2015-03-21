@@ -49,7 +49,7 @@ gulp.task('cleanCss', function () {
 
 gulp.task('copyCss', function () {
     return gulp.src(paths.appCss)
-        .pipe(gulp.dest(paths.distDir));
+        .pipe(gulp.dest(paths.buildDir));
 });
 
 gulp.task('htmlcache', function () {
