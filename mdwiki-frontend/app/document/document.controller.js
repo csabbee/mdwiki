@@ -1,18 +1,15 @@
-import markdown from 'markdown';
-
 class DocumentController {
-    constructor(markdownDocument) {
+    constructor(markdownDocument, MarkdownParser) {
         this.markdownDocument = markdownDocument;
+        this.MarkdownParser = MarkdownParser;
         this.init();
     }
 
     init() {
-        var content = markdown.parse(this.markdownDocument.content);
-        angular.element(document.querySelector('#document-content'))
-            .append(angular.element(content));
+        this.MarkdownParser.parse(this.markdownDocument.content);
     }
 }
 
-DocumentController.$inject = ['markdownDocument'];
+DocumentController.$inject = ['markdownDocument', 'MarkdownParser'];
 
 export { DocumentController };
