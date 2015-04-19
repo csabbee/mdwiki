@@ -235,6 +235,19 @@
                   <exec executable="bash" dir="${project.basedir}" osfamily="unix" failonerror="true">
                     <arg line=" -c 'gulp build'"/>
                   </exec>
+		  <echo>
+---------------------------------------------------
+--             FIRING UP FRONTEND                --
+---------------------------------------------------
+		  </echo>
+                  <!-- windows -->
+                  <exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
+                    <arg line="/c node web-server.js"/>
+                  </exec>
+                  <!-- unix -->
+                  <exec executable="bash" dir="${project.basedir}" osfamily="unix" failonerror="true">
+                    <arg line=" -c 'node web-server.js'"/>
+                  </exec>
                 </target>
               </configuration>
               <goals>

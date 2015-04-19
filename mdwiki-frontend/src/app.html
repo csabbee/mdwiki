@@ -1,3 +1,12 @@
 <template>
-    <h1>Aurelia working!</h1>
+    <require from="./nav/nav-panel"></require>
+
+    <nav-panel router.bind="router"></nav-panel>
+
+    <router-view></router-view>
+
+
+    <div class="loader" if.bind="router.isNavigating">
+        <i class="fa fa-spinner fa-spin"></i>
+    </div>
 </template>

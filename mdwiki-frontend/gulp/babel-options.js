@@ -1,7 +1,7 @@
 module.exports = {
     filename: '',
     filenameRelative: '',
-    modules: '',
+    modules: 'system',
     sourceMap: true,
     sourceMapName: '',
     sourceRoot: '',
@@ -13,6 +13,7 @@ module.exports = {
     code:true,
     stage:2,
     optional: [
-        "es7.decorators"
+        "es7.decorators",
+        "es7.classProperties"
     ]
 };
