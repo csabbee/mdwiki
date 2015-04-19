@@ -27,7 +27,6 @@
     "beforeOpeningRoundBrace": true
   },
   "disallowSpacesInsideArrayBrackets": "nested",
-  "disallowSpacesInsideParentheses": true,
   "disallowTrailingComma": true,
   "disallowTrailingWhitespace": true,
   "maximumLineLength": 120,
